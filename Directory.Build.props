@@ -1,0 +1,20 @@
+<Project>
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<Version>0.1.0</Version>
+		<NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<Product>Codex</Product>
+		<Authors>xkyii</Authors>
+		<Copyright>Copyright 2022-$([System.DateTime]::Now.Year) (c) xkyii</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
+		<BaseOutputPath>$(MSBuildProjectDirectory)\..\..\build\$(MSBuildProjectName)\bin\</BaseOutputPath>
+		<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+		<PackageOutputPath>$(MSBuildProjectDirectory)\..\..\build\nupkg</PackageOutputPath>
+	</PropertyGroup>
+</Project>
