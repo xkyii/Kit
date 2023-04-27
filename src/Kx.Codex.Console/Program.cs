@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +14,9 @@ public class Program
 {
     public async static Task<int> Main(string[] args)
     {
+        string folder = genSpecialFolder();
+        Console.WriteLine("App Folder: " + folder);
+
         Log.Logger = new LoggerConfiguration()
 #if DEBUG
             .MinimumLevel.Debug()
@@ -21,7 +25,7 @@ public class Program
 #endif
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
-            .WriteTo.Async(c => c.File("Logs/logs.txt"))
+            .WriteTo.Async(c => c.File(Path.Combine(folder, "Logs", "logs.txt")))
             .WriteTo.Async(c => c.Console())
             .CreateLogger();
 
@@ -71,5 +75,19 @@ public class Program
         {
             Log.CloseAndFlush();
         }
+    }
+
+    private static string genSpecialFolder()
+    {
+        // 获取当前用户的用户文件夹路径
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string specificPath = Path.Combine(path, ".xky", "codex");
+        // 如果子文件夹不存在，则创建它
+        if (!Directory.Exists(specificPath))
+        {
+            Directory.CreateDirectory(specificPath);
+        }
+
+        return specificPath;
     }
 }
