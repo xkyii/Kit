@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Volo.Abp;
@@ -30,15 +31,24 @@ public class Program
 
             var builder = Host.CreateDefaultBuilder(args);
 
-            builder.ConfigureServices(services =>
-            {
-                services.AddHostedService<CodexHostedService>();
-                services.AddApplicationAsync<CodexModule>(options =>
+            builder
+                .ConfigureServices(services =>
                 {
-                    options.Services.ReplaceConfiguration(services.GetConfiguration());
-                    options.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog());
-                });
-            }).AddAppSettingsSecretsJson().UseAutofac().UseConsoleLifetime();
+                    services.AddHostedService<CodexHostedService>();
+                    services.AddApplicationAsync<CodexModule>(options =>
+                    {
+                        options.Services.ReplaceConfiguration(services.GetConfiguration());
+                        options.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog());
+                    });
+                })
+                .ConfigureLogging(builder =>
+                {
+                    builder.ClearProviders();
+                    builder.AddSerilog();
+                })
+                .AddAppSettingsSecretsJson()
+                .UseAutofac()
+                .UseConsoleLifetime();
 
             var host = builder.Build();
             await host.Services.GetRequiredService<IAbpApplicationWithExternalServiceProvider>().InitializeAsync(host.Services);
