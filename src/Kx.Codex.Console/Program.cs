@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Castle.Core.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -36,14 +38,28 @@ public class Program
             var builder = Host.CreateDefaultBuilder(args);
 
             builder
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    var env = context.HostingEnvironment;
+                    var contentRootPath = context.HostingEnvironment.ContentRootPath;
+
+                    builder.SetBasePath(folder);
+                    builder.AddJsonFile(Path.Combine(contentRootPath, "appsettings.json"), true);
+                    builder.AddJsonFile(Path.Combine(contentRootPath, $"appsettings.{env.EnvironmentName}.json"), true);
+                })
                 .ConfigureServices(services =>
                 {
                     services.AddHostedService<CodexHostedService>();
                     services.AddApplicationAsync<CodexModule>(options =>
                     {
                         options.Services.ReplaceConfiguration(services.GetConfiguration());
-                        options.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog());
                     });
+
+                    // 打印配置变量
+                    foreach (var item in services.GetConfiguration().AsEnumerable())
+                    {
+                        Log.Information("{0}={1}", item.Key, item.Value);
+                    }
                 })
                 .ConfigureLogging(builder =>
                 {
