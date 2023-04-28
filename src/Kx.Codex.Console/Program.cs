@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Castle.Core.Configuration;
+using Kx.Codex.Db;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,6 +50,7 @@ public class Program
                 })
                 .ConfigureServices(services =>
                 {
+                    services.AddCodexDb();
                     services.AddHostedService<CodexHostedService>();
                     services.AddApplicationAsync<CodexModule>(options =>
                     {
