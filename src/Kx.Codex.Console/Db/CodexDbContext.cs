@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kx.Codex.Db;
 
@@ -28,9 +29,20 @@ public class CodexDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseMySQL("server=localhost;port=3306;database=yf_data;user=yfty_admin;password=Yfty!23456");
+        base.OnConfiguring(options);
+    }
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+
+        configurationBuilder.DefaultTypeMapping<Table>();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Table>()
+            .HasKey(c => new { c.TableCatalog, c.TableSchema, c.TableName, c.TableType });
+
+        base.OnModelCreating(modelBuilder);
     }
 }

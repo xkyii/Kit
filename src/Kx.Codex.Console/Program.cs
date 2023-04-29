@@ -57,11 +57,11 @@ public class Program
                         options.Services.ReplaceConfiguration(services.GetConfiguration());
                     });
 
-                    // 打印配置变量
-                    foreach (var item in services.GetConfiguration().AsEnumerable())
-                    {
-                        Log.Information("{0}={1}", item.Key, item.Value);
-                    }
+                    //// 打印配置变量
+                    //foreach (var item in services.GetConfiguration().AsEnumerable())
+                    //{
+                    //    Log.Information("{0}={1}", item.Key, item.Value);
+                    //}
                 })
                 .ConfigureLogging(builder =>
                 {
