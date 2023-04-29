@@ -31,7 +31,7 @@ public class HelloWorldService : ITransientDependency
         //string sql = $"SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = DATABASE();";
         //var ids = _dbContext.Database.SqlQuery<int>($"SELECT [table_name] FROM information_schema.tables WHERE table_schema = DATABASE();").ToList();
 
-        //var tables = _dbContext.Tables.ToList();
+        var tables = _dbContext.Tables.ToList();
 
         using var connection = _dbContext.Database.GetDbConnection();
         connection.Open();
@@ -39,8 +39,10 @@ public class HelloWorldService : ITransientDependency
         command.CommandText = "select * from information_schema.tables where TABLE_SCHEMA=(select database());";
         using (var reader = command.ExecuteReader())
         {
+            int count = 0;
             while (reader.Read())
             {
+                count++;
                 var TableCatalog = reader.GetValueOrDefault<string>("TABLE_CATALOG");
                 Logger.LogInformation($"TableCatalog: {TableCatalog}");
                 var TableSchema = reader.GetValueOrDefault<string>("TABLE_SCHEMA");
@@ -50,6 +52,7 @@ public class HelloWorldService : ITransientDependency
                 var TableType = reader.GetValueOrDefault<string>("TABLE_TYPE");
                 Logger.LogInformation($"TableType: {TableType}");
             }
+            Logger.LogInformation($"Count: {count}");
         }
 
         // ef8 就可以用了

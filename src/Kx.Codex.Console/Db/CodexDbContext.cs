@@ -40,8 +40,11 @@ public class CodexDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Table>()
-            .HasKey(c => new { c.TableCatalog, c.TableSchema, c.TableName, c.TableType });
+        modelBuilder.Entity<Table>(builder =>
+        {
+            builder.ToSqlQuery("select * from information_schema.tables where TABLE_SCHEMA=(select database());")
+                .HasKey(c => new { c.TableCatalog, c.TableSchema, c.TableName, c.TableType });
+        });
 
         base.OnModelCreating(modelBuilder);
     }
