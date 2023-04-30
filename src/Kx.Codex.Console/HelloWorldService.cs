@@ -1,65 +1,45 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Kx.Codex.Db;
-using Kx.Codex.Db.Internal;
+using Kx.Codex.Console.Db;
+using Kx.Codex.Console.Db.Internal;
+using Kx.Codex.Console.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.TextTemplating;
 
-namespace Kx.Codex;
+namespace Kx.Codex.Console;
 
 public class HelloWorldService : ITransientDependency
 {
     public ILogger<HelloWorldService> Logger { get; set; }
 
     private readonly CodexDbContext _dbContext;
+    private readonly ITemplateRenderer _templateRenderer;
 
-    public HelloWorldService(CodexDbContext dbContext)
+    public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer)
     {
         Logger = NullLogger<HelloWorldService>.Instance;
         _dbContext = dbContext;
+        _templateRenderer = templateRenderer;
     }
 
-    public Task SayHelloAsync()
+    public async Task SayHelloAsync()
     {
         Logger.LogInformation("Hello World!");
 
-        //string sql = $"SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE();";
-        //var tables = _dbContext.Database.SqlQuery<string>("").ToList();
-
-        //string sql = $"SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = DATABASE();";
-        //var ids = _dbContext.Database.SqlQuery<int>($"SELECT [table_name] FROM information_schema.tables WHERE table_schema = DATABASE();").ToList();
-
         var tables = _dbContext.Tables.ToList();
 
-        using var connection = _dbContext.Database.GetDbConnection();
-        connection.Open();
-        using var command = connection.CreateCommand();
-        command.CommandText = "select * from information_schema.tables where TABLE_SCHEMA=(select database());";
-        using (var reader = command.ExecuteReader())
-        {
-            int count = 0;
-            while (reader.Read())
+        var result = await _templateRenderer.RenderAsync(
+            "Entity",
+            new EntityModel
             {
-                count++;
-                var TableCatalog = reader.GetValueOrDefault<string>("TABLE_CATALOG");
-                Logger.LogInformation($"TableCatalog: {TableCatalog}");
-                var TableSchema = reader.GetValueOrDefault<string>("TABLE_SCHEMA");
-                Logger.LogInformation($"TableSchema: {TableSchema}");
-                var TableName = reader.GetValueOrDefault<string>("TABLE_NAME");
-                Logger.LogInformation($"TableName: {TableName}");
-                var TableType = reader.GetValueOrDefault<string>("TABLE_TYPE");
-                Logger.LogInformation($"TableType: {TableType}");
+                Name = $"John-{tables.Count}"
             }
-            Logger.LogInformation($"Count: {count}");
-        }
+        );
 
-        // ef8 就可以用了
-        //var tables = _dbContext.Database
-        //    .SqlQuery<string>($"select TABLE_NAME as Name,TABLE_COMMENT as Description from information_schema.tables where TABLE_SCHEMA=(select database());")
-        //    .ToList();
+        Logger.LogInformation(result);
 
-        return Task.CompletedTask;
     }
 }

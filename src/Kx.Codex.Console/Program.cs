@@ -1,8 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Castle.Core.Configuration;
-using Kx.Codex.Db;
+using Kx.Codex.Console.Db;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,14 +10,14 @@ using Serilog;
 using Serilog.Events;
 using Volo.Abp;
 
-namespace Kx.Codex;
+namespace Kx.Codex.Console;
 
 public class Program
 {
     public async static Task<int> Main(string[] args)
     {
         string folder = genSpecialFolder();
-        Console.WriteLine("App Folder: " + folder);
+        System.Console.WriteLine("App Folder: " + folder);
 
         Log.Logger = new LoggerConfiguration()
 #if DEBUG

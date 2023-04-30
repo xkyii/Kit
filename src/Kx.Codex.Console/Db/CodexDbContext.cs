@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Kx.Codex.Db;
+namespace Kx.Codex.Console.Db;
 
 public class CodexDbContext : DbContext
 {

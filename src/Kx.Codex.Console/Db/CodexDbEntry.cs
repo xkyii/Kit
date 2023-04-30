@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Kx.Codex.Db;
+namespace Kx.Codex.Console.Db;
 
 public static class CodexDbEntry
 {

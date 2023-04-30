@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Kx.Codex.Db;
+namespace Kx.Codex.Console.Db;
 
 
 /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -6,11 +7,14 @@ using Microsoft.Extensions.Logging;
 using Volo.Abp;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
+using Volo.Abp.TextTemplating.Razor;
+using Volo.Abp.VirtualFileSystem;
 
-namespace Kx.Codex;
+namespace Kx.Codex.Console;
 
 [DependsOn(
-    typeof(AbpAutofacModule)
+    typeof(AbpAutofacModule),
+    typeof(AbpTextTemplatingRazorModule)
 )]
 public class CodexModule : AbpModule
 {
@@ -25,4 +29,18 @@ public class CodexModule : AbpModule
 
         return Task.CompletedTask;
     }
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        Configure<AbpVirtualFileSystemOptions>(options =>
+        {
+            options.FileSets.AddEmbedded<CodexModule>("Kx.Codex.Console");
+        });
+
+        Configure<AbpRazorTemplateCSharpCompilerOptions>(options =>
+        {
+            options.References.Add(MetadataReference.CreateFromFile(typeof(CodexModule).Assembly.Location));
+        });
+    }
+
 }

@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Kx.Codex.Db.Internal;
+namespace Kx.Codex.Console.Db.Internal;
 
 internal static class DbReaderExtension
 {

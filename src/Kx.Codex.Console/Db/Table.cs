@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kx.Codex.Db;
+namespace Kx.Codex.Console.Db;
 
 [Table("TABLES", Schema = "INFORMATION_SCHEMA")]
 public class Table

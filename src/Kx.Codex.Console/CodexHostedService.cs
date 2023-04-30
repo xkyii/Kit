@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Volo.Abp;
 
-namespace Kx.Codex;
+namespace Kx.Codex.Console;
 
 public class CodexHostedService : IHostedService
 {
