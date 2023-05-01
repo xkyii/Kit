@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
-using Kx.Codex.Console.Db.Internal;
 using Kx.Codex.Console.Text;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Volo.Abp.DependencyInjection;
@@ -31,15 +29,17 @@ public class HelloWorldService : ITransientDependency
 
         var tables = _dbContext.Tables.ToList();
 
-        var result = await _templateRenderer.RenderAsync(
-            "Entity",
-            new EntityModel
+        int count = 0;
+        foreach (var table in tables)
+        {
+            count++;
+            var model = new EntityModel()
             {
-                Name = $"John-{tables.Count}"
-            }
-        );
-
-        Logger.LogInformation(result);
+                Table = table
+            };
+            var result = await _templateRenderer.RenderAsync("Entity", model);
+            Logger.LogInformation($"{count}: {result}");
+        }
 
     }
 }
