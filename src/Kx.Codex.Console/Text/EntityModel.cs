@@ -15,7 +15,7 @@ public class EntityModel
     /// <summary>
     /// 数据库Table的原始字段列表信息
     /// </summary>
-    public List<Db.Column> Culumns { get; set; }
+    public List<Db.Column> Columns { get; set; }
 
     /// <summary>
     /// 配置信息

@@ -1,2 +1,6 @@
 @inherits Volo.Abp.TextTemplating.Razor.RazorTemplatePageBase<Kx.Codex.Console.Text.EntityModel>
-Hello @Model.Table.TableName
+Table: @Model.Table.TableName.ToUpper()
+@foreach (var column in Model.Columns) 
+{
+	@: Column: @column.ColumnName
+}

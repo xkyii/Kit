@@ -33,9 +33,11 @@ public class HelloWorldService : ITransientDependency
         foreach (var table in tables)
         {
             count++;
+            var columns = _dbContext.Columns.Where(x => x.TableName == table.TableName).ToList();
             var model = new EntityModel()
             {
-                Table = table
+                Table = table,
+                Columns = columns,
             };
             var result = await _templateRenderer.RenderAsync("Entity", model);
             Logger.LogInformation($"{count}: {result}");

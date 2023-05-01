@@ -4,7 +4,16 @@ namespace Kx.Codex.Console.Db;
 
 public class CodexDbContext : DbContext
 {
+    /// <summary>
+    /// 原始表信息
+    /// </summary>
     public DbSet<Table> Tables { get; set; }
+
+    /// <summary>
+    /// 原始字段信息
+    /// </summary>
+    public DbSet<Column> Columns { get; set; }
+
 
     /// <summary>
     /// 迁移需要
@@ -41,8 +50,14 @@ public class CodexDbContext : DbContext
     {
         modelBuilder.Entity<Table>(builder =>
         {
-            builder.ToSqlQuery("select * from information_schema.tables where TABLE_SCHEMA=(select database());")
+            builder.ToSqlQuery("select * from information_schema.tables where TABLE_SCHEMA=(select database())")
                 .HasKey(c => new { c.TableCatalog, c.TableSchema, c.TableName, c.TableType });
+        });
+
+        modelBuilder.Entity<Column>(builder =>
+        {
+            builder.ToSqlQuery("select * from information_schema.columns where TABLE_SCHEMA=(select database())")
+                .HasKey(c => new { c.TableCatalog, c.TableSchema, c.TableName, c.ColumnName });
         });
 
         base.OnModelCreating(modelBuilder);
