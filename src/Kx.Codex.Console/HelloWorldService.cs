@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
 using Kx.Codex.Console.Text;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.TextTemplating;
 
@@ -15,15 +17,17 @@ public class HelloWorldService : ITransientDependency
 
     private readonly CodexDbContext _dbContext;
     private readonly ITemplateRenderer _templateRenderer;
+    private readonly IOptions<List<ModelConfig>> _modelsConfigs;
 
-    public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer)
-    {
-        Logger = NullLogger<HelloWorldService>.Instance;
-        _dbContext = dbContext;
-        _templateRenderer = templateRenderer;
-    }
+	public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer, IOptions<List<ModelConfig>> modelsConfigs)
+	{
+		Logger = NullLogger<HelloWorldService>.Instance;
+		_dbContext = dbContext;
+		_templateRenderer = templateRenderer;
+		_modelsConfigs = modelsConfigs;
+	}
 
-    public async Task SayHelloAsync()
+	public async Task SayHelloAsync()
     {
         Logger.LogInformation("Hello World!");
 

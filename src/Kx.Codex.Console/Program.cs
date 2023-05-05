@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
+using Kx.Codex.Console.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,7 +49,7 @@ public class Program
                     builder.AddJsonFile(Path.Combine(contentRootPath, "appsettings.json"), true);
                     builder.AddJsonFile(Path.Combine(contentRootPath, $"appsettings.{env.EnvironmentName}.json"), true);
                 })
-                .ConfigureServices(services =>
+                .ConfigureServices((hostContext, services) =>
                 {
                     services.AddCodexDb();
                     services.AddHostedService<CodexHostedService>();
@@ -55,6 +57,8 @@ public class Program
                     {
                         options.Services.ReplaceConfiguration(services.GetConfiguration());
                     });
+
+                    services.Configure<List<ModelConfig>>(services.GetConfiguration().GetSection("Models"));
 
                     //// 打印配置变量
                     //foreach (var item in services.GetConfiguration().AsEnumerable())
