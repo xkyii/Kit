@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
 using Kx.Codex.Console.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.TextTemplating;
 
@@ -17,17 +18,17 @@ public class HelloWorldService : ITransientDependency
 
     private readonly CodexDbContext _dbContext;
     private readonly ITemplateRenderer _templateRenderer;
-    private readonly IOptions<List<ModelConfig>> _modelsConfigs;
+    private readonly Dictionary<string, Dictionary<string, string>> _configs = default;
 
-	public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer, IOptions<List<ModelConfig>> modelsConfigs)
+	public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer, IConfiguration configuration)
 	{
 		Logger = NullLogger<HelloWorldService>.Instance;
 		_dbContext = dbContext;
-		_templateRenderer = templateRenderer;
-		_modelsConfigs = modelsConfigs;
-	}
+        _templateRenderer = templateRenderer;
+		_configs = configuration.GetSection("Models").Get<Dictionary<string, Dictionary<string, string>>>()!;
+    }
 
-	public async Task SayHelloAsync()
+    public async Task SayHelloAsync()
     {
         Logger.LogInformation("Hello World!");
 
@@ -42,6 +43,7 @@ public class HelloWorldService : ITransientDependency
             {
                 Table = table,
                 Columns = columns,
+                Configs = _configs,
             };
             var result = await _templateRenderer.RenderAsync("Entity", model);
             Logger.LogInformation($"{count}: {result}");

@@ -58,8 +58,6 @@ public class Program
                         options.Services.ReplaceConfiguration(services.GetConfiguration());
                     });
 
-                    services.Configure<List<ModelConfig>>(services.GetConfiguration().GetSection("Models"));
-
                     //// 打印配置变量
                     //foreach (var item in services.GetConfiguration().AsEnumerable())
                     //{

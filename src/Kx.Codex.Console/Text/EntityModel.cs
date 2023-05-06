@@ -5,7 +5,7 @@ namespace Kx.Codex.Console.Text;
 /// <summary>
 /// Entity 模型
 /// </summary>
-public class EntityModel
+public class EntityModel : AConfigModel
 {
     /// <summary>
     /// 数据库Table的原始信息
@@ -16,9 +16,4 @@ public class EntityModel
     /// 数据库Table的原始字段列表信息
     /// </summary>
     public List<Db.Column> Columns { get; set; }
-
-    /// <summary>
-    /// 配置信息
-    /// </summary>
-    public object Config { get; set; }
 }
