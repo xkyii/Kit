@@ -1,7 +1,16 @@
 @inherits Volo.Abp.TextTemplating.Razor.RazorTemplatePageBase<Kx.Codex.Console.Text.EntityModel>
-Table: @Model.Table.TableName.ToUpper()
-@foreach (var column in Model.Columns) 
-{
-	@: Column: @column.ColumnName
+@using Kx.Codex.Console.Extensions
+
+package @Model.Configs["Entity"]["Package"];
+import com.aj.frame.beans.AJFrameNamedBeanAbstract;
+
+import java.util.List;
+
+
+ /**
+  * @@title: @Model.Table.TableComment
+  * @@author: xkyii
+  * @@version v0.0.2
+  */
+public class @Model.Table.TableName.ToBeanName() extends AJFrameNamedBeanAbstract {
 }
-Configs 1: @Model.Configs["Entity"]["Package"]
