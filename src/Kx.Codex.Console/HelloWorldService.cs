@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
@@ -32,7 +31,7 @@ public class HelloWorldService : ITransientDependency
     {
         Logger.LogInformation("Hello World!");
 
-        var tables = _dbContext.Tables.ToList();
+        var tables = _dbContext.Tables.Take(5).ToList();
 
         int count = 0;
         foreach (var table in tables)
