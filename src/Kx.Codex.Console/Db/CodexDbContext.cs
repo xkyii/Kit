@@ -31,14 +31,6 @@ public class CodexDbContext : DbContext
     {
     }
 
-    /// <summary>
-    /// 迁移需要
-    /// </summary>
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        options.UseMySQL("server=localhost;port=3306;database=yf_data;user=yfty_admin;password=Yfty!23456");
-        base.OnConfiguring(options);
-    }
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         base.ConfigureConventions(configurationBuilder);
