@@ -33,47 +33,47 @@ public class Column
 	[Column("COLUMN_NAME")]
     public string ColumnName { get; set; }
 
- //   /// <summary>
- //   /// Column identification number.
- //   /// </summary>
-	//[Column("ORDINAL_POSITION")]
- //   public int OrdinalPosition { get; set; }
+    /// <summary>
+    /// Column identification number.
+    /// </summary>
+	[Column("ORDINAL_POSITION")]
+    public int OrdinalPosition { get; set; }
 
- //   /// <summary>
- //   /// Default value of the column.
- //   /// </summary>
-	//[Column("COLUMN_DEFAULT")]
- //   public string ColumnDefault { get; set; }
+    /// <summary>
+    /// Default value of the column.
+    /// </summary>
+	[Column("COLUMN_DEFAULT")]
+    public string? ColumnDefault { get; set; }
 
- //   /// <summary>
- //   /// Nullability of the column. If this column allows for NULL, this column returns YES. Otherwise, NO is returned.
- //   /// </summary>
-	//[Column("IS_NULLABLE")]
- //   public string IsNullable { get; set; }
+    /// <summary>
+    /// Nullability of the column. If this column allows for NULL, this column returns YES. Otherwise, NO is returned.
+    /// </summary>
+	[Column("IS_NULLABLE")]
+    public string IsNullable { get; set; }
 
- //   /// <summary>
- //   /// System-supplied data type.
- //   /// </summary>
-	//[Column("DATA_TYPE")]
- //   public string DataType { get; set; }
+    /// <summary>
+    /// System-supplied data type.
+    /// </summary>
+	[Column("DATA_TYPE")]
+    public string DataType { get; set; }
 
- //   /// <summary>
- //   /// Maximum length, in characters, for binary data, character data, or text and image data. -1 for xml and large-value type data.Otherwise, NULL is returned.For more information, see Data Types(Transact-SQL).
- //   /// </summary>
-	//[Column("CHARACTER_MAXIMUM_LENGTH")]
- //   public int? CharacterMaximumLength { get; set; }
+    /// <summary>
+    /// Maximum length, in characters, for binary data, character data, or text and image data. -1 for xml and large-value type data.Otherwise, NULL is returned.For more information, see Data Types(Transact-SQL).
+    /// </summary>
+	[Column("CHARACTER_MAXIMUM_LENGTH")]
+    public int? CharacterMaximumLength { get; set; }
 
- //   /// <summary>
- //   /// Maximum length, in bytes, for binary data, character data, or text and image data. -1 for xml and large-value type data.Otherwise, NULL is returned.
- //   /// </summary>
- //   [Column("CHARACTER_OCTET_LENGTH")]
- //   public int? CharacterOctetLength { get; set; }
+    /// <summary>
+    /// Maximum length, in bytes, for binary data, character data, or text and image data. -1 for xml and large-value type data.Otherwise, NULL is returned.
+    /// </summary>
+    [Column("CHARACTER_OCTET_LENGTH")]
+    public int? CharacterOctetLength { get; set; }
 
- //   /// <summary>
- //   /// Precision of approximate numeric data, exact numeric data, integer data, or monetary data. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("NUMERIC_PRECISION")]
- //   public byte? NumericPrecision { get; set; }
+    /// <summary>
+    /// Precision of approximate numeric data, exact numeric data, integer data, or monetary data. Otherwise, NULL is returned.
+    /// </summary>
+	[Column("NUMERIC_PRECISION")]
+    public int? NumericPrecision { get; set; }
 
  //   /// <summary>
  //   /// Precision radix of approximate numeric data, exact numeric data, integer data, or monetary data. Otherwise, NULL is returned.
@@ -81,17 +81,17 @@ public class Column
 	//[Column("NUMERIC_PRECISION_RADIX")]
  //   public short? NumericPrecisionRadix { get; set; }
 
- //   /// <summary>
- //   /// Scale of approximate numeric data, exact numeric data, integer data, or monetary data. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("NUMERIC_SCALE")]
- //   public int? NumericScale { get; set; }
+    /// <summary>
+    /// Scale of approximate numeric data, exact numeric data, integer data, or monetary data. Otherwise, NULL is returned.
+    /// </summary>
+	[Column("NUMERIC_SCALE")]
+    public int? NumericScale { get; set; }
 
- //   /// <summary>
- //   /// Subtype code for datetime and ISO interval data types. For other data types, NULL is returned.
- //   /// </summary>
-	//[Column("DATETIME_PRECISION")]
- //   public short? DatetimePrecision { get; set; }
+    /// <summary>
+    /// Subtype code for datetime and ISO interval data types. For other data types, NULL is returned.
+    /// </summary>
+	[Column("DATETIME_PRECISION")]
+    public short? DatetimePrecision { get; set; }
 
  //   /// <summary>
  //   /// Returns master. This indicates the database in which the character set is located, if the column is character data or text data type. Otherwise, NULL is returned.
@@ -105,11 +105,11 @@ public class Column
 	//[Column("CHARACTER_SET_SCHEMA")]
  //   public string CharacterSetSchema { get; set; }
 
- //   /// <summary>
- //   /// Returns the unique name for the character set if this column is character data or text data type. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("CHARACTER_SET_NAME")]
- //   public string CharacterSetName { get; set; }
+    /// <summary>
+    /// Returns the unique name for the character set if this column is character data or text data type. Otherwise, NULL is returned.
+    /// </summary>
+	[Column("CHARACTER_SET_NAME")]
+    public string? CharacterSetName { get; set; }
 
  //   /// <summary>
  //   /// Always returns NULL.
@@ -123,11 +123,11 @@ public class Column
 	//[Column("COLLATION_SCHEMA")]
  //   public string CollationSchema { get; set; }
 
- //   /// <summary>
- //   /// Returns the unique name for the collation if the column is character data or text data type. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("COLLATION_NAME")]
- //   public string CollationName { get; set; }
+    /// <summary>
+    /// Returns the unique name for the collation if the column is character data or text data type. Otherwise, NULL is returned.
+    /// </summary>
+	[Column("COLLATION_NAME")]
+    public string? CollationName { get; set; }
 
  //   /// <summary>
  //   /// If the column is an alias data type, this column is the database name in which the user-defined data type was created. Otherwise, NULL is returned.
