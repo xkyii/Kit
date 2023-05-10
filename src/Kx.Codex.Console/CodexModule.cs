@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Ks.Core.Naming;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,7 @@ public class CodexModule : AbpModule
         Configure<AbpRazorTemplateCSharpCompilerOptions>(options =>
         {
             options.References.Add(MetadataReference.CreateFromFile(typeof(CodexModule).Assembly.Location));
+            options.References.Add(MetadataReference.CreateFromFile(typeof(StringConvertExtensions).Assembly.Location));
         });
     }
 

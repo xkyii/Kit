@@ -1,5 +1,6 @@
 @inherits Volo.Abp.TextTemplating.Razor.RazorTemplatePageBase<Kx.Codex.Console.Text.EntityModel>
 @using Kx.Codex.Console.Extensions
+@using Ks.Core.Naming;
 
 package @Model.Configs["Entity"]["Package"];
 import com.aj.frame.beans.AJFrameNamedBeanAbstract;
@@ -15,6 +16,6 @@ import java.util.List;
 public class @Model.Table.TableName.ToBeanName() extends AJFrameNamedBeanAbstract {
 @foreach (var column in Model.Columns)
 {
-    @: Column: column
+    @: private @column.DataType @column.ColumnName.SplitAuto().ToCamel();
 }
 }
