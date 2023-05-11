@@ -16,6 +16,10 @@ import java.util.List;
 public class @Model.Table.TableName.ToBeanName() extends AJFrameNamedBeanAbstract {
 @foreach (var column in Model.Columns)
 {
-    @: private @column.DataType @column.ColumnName.SplitAuto().ToCamel();
+@:
+@:  /**
+@:   * @column.ColumnComment
+@:   */
+@:  private @column.JavaType() @column.ColumnName.SplitAuto().ToCamel();
 }
 }

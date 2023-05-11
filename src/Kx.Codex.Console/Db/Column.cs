@@ -129,22 +129,28 @@ public class Column
 	[Column("COLLATION_NAME")]
     public string? CollationName { get; set; }
 
- //   /// <summary>
- //   /// If the column is an alias data type, this column is the database name in which the user-defined data type was created. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("DOMAIN_CATALOG")]
- //   public string DomainCatalog { get; set; }
+    //   /// <summary>
+    //   /// If the column is an alias data type, this column is the database name in which the user-defined data type was created. Otherwise, NULL is returned.
+    //   /// </summary>
+    //[Column("DOMAIN_CATALOG")]
+    //   public string DomainCatalog { get; set; }
 
- //   /// <summary>
- //   /// If the column is a user-defined data type, this column returns the name of the schema of the user-defined data type. Otherwise, NULL is returned.
- //   /// ** Important *\* Do not use INFORMATION_SCHEMA views to determine the schema of a data type. The only reliable way to find the schema of a type is to use the TYPEPROPERTY function.
- //   /// </summary>
-	//[Column("DOMAIN_SCHEMA")]
- //   public string DomainSchema { get; set; }
+    //   /// <summary>
+    //   /// If the column is a user-defined data type, this column returns the name of the schema of the user-defined data type. Otherwise, NULL is returned.
+    //   /// ** Important *\* Do not use INFORMATION_SCHEMA views to determine the schema of a data type. The only reliable way to find the schema of a type is to use the TYPEPROPERTY function.
+    //   /// </summary>
+    //[Column("DOMAIN_SCHEMA")]
+    //   public string DomainSchema { get; set; }
 
- //   /// <summary>
- //   /// If the column is a user-defined data type, this column is the name of the user-defined data type. Otherwise, NULL is returned.
- //   /// </summary>
-	//[Column("DOMAIN_NAME")]
- //   public string DomainName { get; set; }
+    //   /// <summary>
+    //   /// If the column is a user-defined data type, this column is the name of the user-defined data type. Otherwise, NULL is returned.
+    //   /// </summary>
+    //[Column("DOMAIN_NAME")]
+    //   public string DomainName { get; set; }
+
+    /// <summary>
+    /// ×¢ÊÍ
+    /// </summary>
+    [Column("COLUMN_COMMENT")]
+    public string? ColumnComment { get; set; }
 }
