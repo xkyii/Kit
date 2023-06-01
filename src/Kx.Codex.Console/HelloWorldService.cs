@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Kx.Codex.Console.Db;
+using Kx.Codex.Console.Extensions;
 using Kx.Codex.Console.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -45,8 +47,36 @@ public class HelloWorldService : ITransientDependency
                 Configs = _configs,
             };
             var result = await _templateRenderer.RenderAsync("Entity", model);
+            Logger.LogInformation($"File: {table.TableName}");
             Logger.LogInformation($"{count}: {result}");
+
+            string? path = string.Format(_configs["Entity"]["File"], table.TableName.ToBeanName());
+            await Write(path, result);
+        }
+    }
+
+    private async Task Write(string? path, string result)
+    {
+        Logger.LogInformation($"写入文件: {path}");
+        if (path == null)
+        {
+            Logger.LogError("没有指定有效的文件.");
+            return;
+        }
+        string? dir = Path.GetDirectoryName(path);
+        if (dir == null)
+        {
+            Logger.LogError($"没有指定有效的目录. path: {path}");
+            return;
+        }
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
         }
 
+        using (var file = new StreamWriter(path))
+        {
+            await file.WriteAsync(result);
+        }
     }
 }
