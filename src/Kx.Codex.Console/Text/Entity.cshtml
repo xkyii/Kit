@@ -2,7 +2,7 @@
 @using Kx.Codex.Console.Extensions
 @using Ks.Core.Naming;
 
-package @Model.Configs["Entity"]["Package"];
+package @Model.Models["Entity"]["Package"];
 import com.aj.frame.beans.AJFrameNamedBeanAbstract;
 
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
 
  /**
   * @@title: @Model.Table.TableComment
-  * @@author: xkyii
-  * @@version v0.0.2
+  * @@author: @Model.Common.Author
+  * @@version @Model.Common.Version
   */
 public class @Model.Table.TableName.ToBeanName() extends AJFrameNamedBeanAbstract {
 @foreach (var column in Model.Columns)

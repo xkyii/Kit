@@ -7,10 +7,10 @@ namespace Kx.Codex.Console.Text;
 /// </summary>
 public class EntityModel : AConfigModel
 {
-    /// <summary>
-    /// 数据库Table的原始信息
-    /// </summary>
-    public Db.Table Table { get; set; }
+	/// <summary>
+	/// 数据库Table的原始信息
+	/// </summary>
+	public Db.Table Table { get; set; }
 
     /// <summary>
     /// 数据库Table的原始字段列表信息

@@ -44,7 +44,7 @@ public class HelloWorldService : ITransientDependency
             {
                 Table = table,
                 Columns = columns,
-                Configs = _configs,
+                Models = _configs,
             };
             var result = await _templateRenderer.RenderAsync("Entity", model);
             Logger.LogInformation($"File: {table.TableName}");
