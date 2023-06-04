@@ -19,14 +19,16 @@ public class HelloWorldService : ITransientDependency
 
     private readonly CodexDbContext _dbContext;
     private readonly ITemplateRenderer _templateRenderer;
-    private readonly Dictionary<string, Dictionary<string, string>> _configs = default;
+    private readonly Dictionary<string, Dictionary<string, string>> _models;
+    private readonly CommonModel _common;
 
 	public HelloWorldService(CodexDbContext dbContext, ITemplateRenderer templateRenderer, IConfiguration configuration)
 	{
 		Logger = NullLogger<HelloWorldService>.Instance;
 		_dbContext = dbContext;
         _templateRenderer = templateRenderer;
-		_configs = configuration.GetSection("Models").Get<Dictionary<string, Dictionary<string, string>>>()!;
+		_models = configuration.GetSection("Models")?.Get<Dictionary<string, Dictionary<string, string>>>() ?? new Dictionary<string, Dictionary<string, string>>();
+        _common = configuration.GetSection("Common")?.Get<CommonModel>() ?? CommonModel.Empty;
     }
 
     public async Task SayHelloAsync()
@@ -44,13 +46,14 @@ public class HelloWorldService : ITransientDependency
             {
                 Table = table,
                 Columns = columns,
-                Models = _configs,
+                Models = _models,
+                Common = _common,
             };
             var result = await _templateRenderer.RenderAsync("Entity", model);
             Logger.LogInformation($"File: {table.TableName}");
             Logger.LogInformation($"{count}: {result}");
 
-            string? path = string.Format(_configs["Entity"]["File"], table.TableName.ToBeanName());
+            string? path = string.Format(_models["Entity"]["File"], table.TableName.ToBeanName());
             await Write(path, result);
         }
     }
