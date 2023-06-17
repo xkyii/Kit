@@ -1,6 +1,9 @@
 using System;
 using System.IO;
+using Kx.Codex.Console.Db;
+using Kx.Codex.Console.Service;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -42,6 +45,11 @@ try
 			builder.ClearProviders();
 			builder.AddSerilog();
 		})
+		.ConfigureServices((hostContext, services) =>
+		{
+			services.AddCodexDb();
+			services.AddHostedService<HelloHostedService>();
+		})
 		.UseConsoleLifetime()
 		.Build()
 		.RunAsync()
@@ -50,7 +58,7 @@ try
 }
 catch (Exception ex)
 {
-	Console.WriteLine(ex.ToString());
+	Log.Error(ex.ToString());
 }
 finally
 {
