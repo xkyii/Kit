@@ -13,6 +13,7 @@ using Serilog.Events;
 var folder = genSpecialFolder();
 Console.WriteLine($"App Folder: {folder}");
 
+
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
 	.MinimumLevel.Debug()
@@ -64,12 +65,6 @@ finally
 {
 	Log.CloseAndFlush();
 }
-
-
-
-
-
-
 
 static string genSpecialFolder()
 {

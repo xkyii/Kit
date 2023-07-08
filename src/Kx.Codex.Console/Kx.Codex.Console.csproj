@@ -11,6 +11,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Templates\Entity.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Ks.Core" Version="0.2.2.2" />
         <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.2" />
     </ItemGroup>
@@ -29,6 +33,10 @@
             <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Templates\Entity.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

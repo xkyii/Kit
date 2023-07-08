@@ -55,8 +55,10 @@ internal class HelloHostedService : IHostedService
 		.Select(x => MetadataReference.CreateFromFile(x.Location))
 		.ToImmutableList();
 
+		var content = File.ReadAllText(_models["Entity"]["TemplateFile"]);
+
 		var engine = new RazorEngine();
-		var template = engine.Compile<RazorEngineTemplateBase<EntityModel>>(CONTENT, builder =>
+		var template = engine.Compile<RazorEngineTemplateBase<EntityModel>>(content, builder =>
 		{
 
 			foreach (var ar in assmblyRefers) 
@@ -123,32 +125,4 @@ internal class HelloHostedService : IHostedService
 			await file.WriteAsync(result);
 		}
 	}
-
-
-	private static readonly string CONTENT = """
-		@using Kx.Codex.Console.Extensions
-		@using Ks.Core.Naming;
-
-		package @Model.Models["Entity"]["Package"];
-		import com.aj.frame.beans.AJFrameNamedBeanAbstract;
-
-		import java.util.List;
-
-
-		 /**
-		  * @@title: @Model.Table.TableComment
-		  * @@author: @Model.Common.Author
-		  * @@version @Model.Common.Version
-		  */
-		public class @Model.Table.TableName extends AJFrameNamedBeanAbstract {
-		@foreach (var column in Model.Columns)
-		{
-		@:
-		@:  /**
-		@:   * @column.ColumnComment
-		@:   */
-		@:  private @column.JavaType() @column.ColumnName.SplitAuto().ToCamel();
-		}
-		}
-		""";
 }
