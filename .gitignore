@@ -254,3 +254,4 @@ paket-files/
 # Codex
 src/Kx.Codex.ConsoleApp/Logs/logs.txt
 src/Kx.Codex.Console/Logs
+.src
