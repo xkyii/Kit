@@ -13,7 +13,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RazorEngineCore;
 
 namespace Kx.Codex.Console.Service;
@@ -55,44 +54,60 @@ internal class HelloHostedService : IHostedService
 		.Select(x => MetadataReference.CreateFromFile(x.Location))
 		.ToImmutableList();
 
-		var content = File.ReadAllText(_models["Entity"]["TemplateFile"]);
-
-		var engine = new RazorEngine();
-		var template = engine.Compile<RazorEngineTemplateBase<EntityModel>>(content, builder =>
+		foreach (var entry in _models)
 		{
-
-			foreach (var ar in assmblyRefers) 
+			Logger.LogInformation("处理Model: {name}", entry.Key);
+			var model = entry.Value;
+			if (entry.Value == null || entry.Value.Count == 0)
 			{
-				builder.AddMetadataReference(ar);
+				Logger.LogWarning("\t没有有效字典, 忽略.");
+				continue;
+			}
+			if (!entry.Value.TryGetValue("Enabled", out var enabled) || string.IsNullOrEmpty(enabled) || enabled.ToLower().Equals("false"))
+			{
+				Logger.LogWarning("\tEnabled为空或false, 忽略.");
+				continue;
 			}
 
-			builder.AddAssemblyReference(typeof(Column));
-			builder.AddAssemblyReference(typeof(StringExtensions));
-			builder.AddAssemblyReference(typeof(ColumnExtensions));
-		});
+			var content = File.ReadAllText(entry.Value["TemplateFile"]);
 
-		var tables = _dbContext.Tables.Take(5).ToList();
-
-		int count = 0;
-		foreach (var table in tables)
-		{
-			count++;
-			var columns = _dbContext.Columns.Where(x => x.TableName == table.TableName).ToList();
-			var model = new EntityModel()
+			var engine = new RazorEngine();
+			var template = engine.Compile<RazorEngineTemplateBase<EntityModel>>(content, builder =>
 			{
-				Table = table,
-				Columns = columns,
-				Models = _models,
-				Common = _common,
-			};
 
-			string result = await template.RunAsync(instance => instance.Model = model);
+				foreach (var ar in assmblyRefers)
+				{
+					builder.AddMetadataReference(ar);
+				}
 
-			Logger.LogInformation($"File: {table.TableName}");
-			Logger.LogInformation($"{count}: {result}");
+				builder.AddAssemblyReference(typeof(Column));
+				builder.AddAssemblyReference(typeof(StringExtensions));
+				builder.AddAssemblyReference(typeof(ColumnExtensions));
+			});
 
-			string? path = string.Format(_models["Entity"]["File"], table.TableName.ToBeanName());
-			await Write(path, result);
+			var tables = _dbContext.Tables.Take(5).ToList();
+
+			int count = 0;
+			foreach (var table in tables)
+			{
+				count++;
+				var columns = _dbContext.Columns.Where(x => x.TableName == table.TableName).ToList();
+				var em = new EntityModel()
+				{
+					Table = table,
+					Columns = columns,
+					Models = _models,
+					Common = _common,
+				};
+
+				string result = await template.RunAsync(instance => instance.Model = em);
+
+				Logger.LogInformation($"File: {table.TableName}");
+				Logger.LogInformation($"{count}: {result}");
+
+				string? path = string.Format(entry.Value["File"], table.TableName.ToBeanName());
+				await Write(path, result);
+			}
 		}
 	}
 

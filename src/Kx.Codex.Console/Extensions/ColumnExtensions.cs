@@ -22,5 +22,25 @@ public static class ColumnExtensions
             "time" => "Date",
             _ => "Unknown",
         };
-    }
+	}
+
+	public static string CsType(this Column column)
+	{
+		return column.DataType switch
+		{
+			"tinyint" => "byte",
+			"smallint" => "short",
+			"int" => "int",
+			"bigint" => "long",
+			"decimal" => "decimal", // TODO
+			"text" => "string",
+			"json" => "string",
+			"longtext" => "string",
+			"varchar" => "string",
+			"datetime" => "DateTime",
+			"timestamp" => "DateTime",
+			"time" => "DateTime",
+			_ => "Unknown",
+		};
+	}
 }

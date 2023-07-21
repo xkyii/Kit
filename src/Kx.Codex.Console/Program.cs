@@ -37,6 +37,8 @@ try
 			var env = context.HostingEnvironment;
 			var contentRootPath = context.HostingEnvironment.ContentRootPath;
 
+			Log.Information(" EnvironmentName: {env}", env.EnvironmentName);
+
 			builder.SetBasePath(folder);
 			builder.AddJsonFile(Path.Combine(contentRootPath, "appsettings.json"), true);
 			builder.AddJsonFile(Path.Combine(contentRootPath, $"appsettings.{env.EnvironmentName}.json"), true);
