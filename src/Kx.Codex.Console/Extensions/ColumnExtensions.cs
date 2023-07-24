@@ -28,7 +28,7 @@ public static class ColumnExtensions
 	{
 		return column.DataType switch
 		{
-			"tinyint" => "byte",
+			"tinyint" => column.ColumnName.StartsWith("is_", System.StringComparison.OrdinalIgnoreCase) ? "bool" : "byte",
 			"smallint" => "short",
 			"int" => "int",
 			"bigint" => "long",
