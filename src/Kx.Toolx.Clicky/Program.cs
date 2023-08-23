@@ -6,6 +6,11 @@ using Kx.Toolx.Clicky;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
+
+var folder = genSpecialFolder();
+Console.WriteLine($"App Folder: {folder}");
+
+
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
 	.MinimumLevel.Debug()
@@ -25,8 +30,15 @@ try
 	await Host.CreateDefaultBuilder(args)
 		.ConfigureAppConfiguration((context, builder) =>
 		{
-			builder.AddJsonFile("appsettings.json", true, true);
-			builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true);
+			var env = context.HostingEnvironment;
+			var contentRootPath = context.HostingEnvironment.ContentRootPath;
+
+			Log.Information(" EnvironmentName: {env}", env.EnvironmentName);
+
+			builder.SetBasePath(folder);
+			builder.AddJsonFile("appsettings.json", true);
+			builder.AddJsonFile(Path.Combine(contentRootPath, "appsettings.json"), true);
+			builder.AddJsonFile(Path.Combine(contentRootPath, $"appsettings.{env.EnvironmentName}.json"), true);
 		})
 		.ConfigureLogging(builder =>
 		{
@@ -51,4 +63,19 @@ catch (Exception ex)
 finally
 {
 	Log.CloseAndFlush();
+}
+
+
+
+static string genSpecialFolder()
+{
+	// 获取当前用户的用户文件夹路径
+	string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+	string specificPath = Path.Combine(path, ".xky", "clicky");
+	// 如果子文件夹不存在，则创建它
+	if (!Directory.Exists(specificPath))
+	{
+		Directory.CreateDirectory(specificPath);
+	}
+	return specificPath;
 }

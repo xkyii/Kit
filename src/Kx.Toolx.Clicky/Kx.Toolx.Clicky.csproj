@@ -5,6 +5,10 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>clicky</ToolCommandName>
+		<RootNamespace>Kx.Codex.Console</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

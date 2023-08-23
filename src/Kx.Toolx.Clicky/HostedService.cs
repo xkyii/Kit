@@ -19,11 +19,13 @@ internal class HostedService : BackgroundService
 	{
 		_logger = logger;
 		_config = options.Value;
+
+		_logger.LogInformation(_config.ToString());
 	}
 
 	protected override Task ExecuteAsync(CancellationToken stoppingToken)
 	{
-		_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+		_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(_config.TimerPeriod));
 		return Task.CompletedTask;
 	}
 
