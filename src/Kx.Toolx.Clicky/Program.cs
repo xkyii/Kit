@@ -50,10 +50,11 @@ try
 			services.AddHostedService<HostedService>();
 
 			// Options
-			services.Configure<ClickyConfig>(hostContext.Configuration.GetSection(ClickyConfig.KEY));
+			// 原配置
+			// services.Configure<ClickyConfig>(hostContext.Configuration.GetSection(ClickyConfig.KEY));
 
+			// 替换后
 			services.AddOptions();
-
 			var config = hostContext.Configuration.GetSection(ClickyConfig.KEY);
 			services.AddSingleton<IOptionsChangeTokenSource<ClickyConfig>>(new ConfigurationChangeTokenSource<ClickyConfig>(string.Empty, config));
 			services.AddSingleton<IConfigureOptions<ClickyConfig>>(new ClickyConfigureNamedOptions(string.Empty, config));
