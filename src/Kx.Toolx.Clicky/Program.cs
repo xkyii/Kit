@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Kx.Toolx.Clicky;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.Extensions.Options;
 
 var folder = genSpecialFolder();
 Console.WriteLine($"App Folder: {folder}");
@@ -48,7 +48,15 @@ try
 		.ConfigureServices((hostContext, services) =>
 		{
 			services.AddHostedService<HostedService>();
+
+			// Options
 			services.Configure<ClickyConfig>(hostContext.Configuration.GetSection(ClickyConfig.KEY));
+
+			services.AddOptions();
+
+			var config = hostContext.Configuration.GetSection(ClickyConfig.KEY);
+			services.AddSingleton<IOptionsChangeTokenSource<ClickyConfig>>(new ConfigurationChangeTokenSource<ClickyConfig>(string.Empty, config));
+			services.AddSingleton<IConfigureOptions<ClickyConfig>>(new ClickyConfigureNamedOptions(string.Empty, config));
 		})
 		.UseConsoleLifetime()
 		.Build()

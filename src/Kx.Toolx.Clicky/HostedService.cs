@@ -44,6 +44,11 @@ internal class HostedService : BackgroundService
 
 	private Point RandomPoint()
 	{
+		if (_config.Points == null || _config.Points.Count() == 0)
+		{
+			return Point.Empty;
+		}
+
 		var x = (new Random().Next() % _config.Points.Count());
 		//_logger.LogInformation($"x: {x}");
 		//foreach (var p in _config.Points)
