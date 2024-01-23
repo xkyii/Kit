@@ -11,7 +11,7 @@
         ExtendClientAreaTitleBarHeightHint="-1"
         SystemDecorations="None"
         Title="Kx.Toolx.AvaUi">
-	<ui:NavigationView x:Name="nvSample2" PaneDisplayMode="Auto">
+	<ui:NavigationView x:Name="mainNavigationView" PaneDisplayMode="Auto">
 		<ui:NavigationView.MenuItems>
 			<ui:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" IconSource="Play"/>
 			<ui:NavigationViewItem Content="Menu Item2" Tag="SamplePage2" IconSource="Save" />
