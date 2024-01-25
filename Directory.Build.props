@@ -17,4 +17,9 @@
 		<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
 		<PackageOutputPath>$(MSBuildProjectDirectory)\..\..\build\nupkg</PackageOutputPath>
 	</PropertyGroup>
+
+    <PropertyGroup>
+        <AvaloniaVersion>11.0.7</AvaloniaVersion>
+    </PropertyGroup>
 </Project>
+

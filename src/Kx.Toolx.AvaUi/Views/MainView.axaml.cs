@@ -1,12 +1,11 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 
-namespace Kx.Toolx.AvaUi.Views
+namespace Kx.Toolx.AvaUi.Views;
+
+public partial class MainView : UserControl
 {
-    public partial class MainView : UserControl
+    public MainView()
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

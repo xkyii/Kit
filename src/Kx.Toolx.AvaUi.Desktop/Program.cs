@@ -1,7 +1,9 @@
-﻿using Avalonia;
-using System;
+﻿using System;
 
-namespace Kx.Toolx.AvaUi;
+using Avalonia;
+using Avalonia.ReactiveUI;
+
+namespace Kx.Toolx.AvaUi.Desktop;
 
 class Program
 {
@@ -16,5 +18,7 @@ class Program
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .LogToTrace();
+            .WithInterFont()
+            .LogToTrace()
+            .UseReactiveUI();
 }

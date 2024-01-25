@@ -1,14 +1,11 @@
-using FluentAvalonia.UI.Windowing;
+﻿using Avalonia.Controls;
 
 namespace Kx.Toolx.AvaUi.Views;
 
-public partial class MainWindow : AppWindow
+public partial class MainWindow : Window
 {
     public MainWindow()
     {
         InitializeComponent();
-        Title = "Kx.Toolx.AvaUi";
-        TitleBar.ExtendsContentIntoTitleBar = true;
-        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
     }
 }
