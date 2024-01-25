@@ -3,13 +3,14 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Kx.Toolx.AvaUi.Views;
+using Splat;
 
 namespace Kx.Toolx.AvaUi;
 
 public partial class App : Application
 {
 
-#if DEBUG
+#if DEBUGX
     [DllImport("Kernel32")]
     public static extern void AllocConsole();
 
@@ -19,13 +20,13 @@ public partial class App : Application
 
     public override void Initialize()
     {
-#if DEBUG
+#if DEBUGX
         AllocConsole();
 #endif
         AvaloniaXamlLoader.Load(this);
     }
 
-#if DEBUG
+#if DEBUGX
     ~App()
     {
         FreeConsole();

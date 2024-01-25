@@ -1,7 +1,14 @@
-﻿using System;
+using System;
 
 using Avalonia;
+using Avalonia.Logging;
 using Avalonia.ReactiveUI;
+using Kx.Toolx.AvaUi.ViewModels;
+using Kx.Toolx.AvaUi.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using ReactiveUI.Avalonia.Splat;
+using Splat.Microsoft.Extensions.Logging;
 
 namespace Kx.Toolx.AvaUi.Desktop;
 
@@ -20,5 +27,25 @@ class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI();
+            .UseReactiveUIWithMicrosoftDependencyResolver(services =>
+            {
+                services.AddTransient<MainViewModel>();
+                services.AddTransient<MainWindow>();
+                services.AddLogging(builder =>
+                {
+                    builder.AddSplat();
+                    builder.AddConsole();
+
+                });
+                services.AddSingleton<ILogSink, MicrosoftLogSink>(serviceProvider =>
+                {
+                    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+                    return new MicrosoftLogSink(loggerFactory, minimumAvaloniaLogLevel: LogLevel.Warning);
+                });
+            }, serviceProvider =>
+            {
+                ArgumentNullException.ThrowIfNull(serviceProvider);
+
+                Logger.Sink = serviceProvider.GetRequiredService<ILogSink>();
+            });
 }
