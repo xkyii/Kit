@@ -43,10 +43,10 @@
         </Grid>
 
         <ui:NavigationView
-            x:Name="Nav"
             Grid.Row="1"
             OpenPaneLength="160"
-            PaneDisplayMode="Auto">
+            PaneDisplayMode="Auto"
+            x:Name="NavigationView">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" IconSource="Play" />
                 <ui:NavigationViewItem Content="Menu Item2" Tag="SamplePage2" IconSource="Save" />
