@@ -3,119 +3,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:wnd="using:FluentAvalonia.UI.Windowing"
-             Padding="0"
-             Focusable="True"
+             xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Kx.Toolx.AvaUi.Views.MainView">
 
-    <UserControl.Styles>
-        <Style Selector="FlyoutPresenter.HiddenNotificationPadding0">
-            <Setter Property="Padding" Value="0" />
-        </Style>
-    </UserControl.Styles>
-
     <Grid RowDefinitions="Auto,*">
-        <Grid
-            x:Name="Titlebar"
-            Margin="0,0, 100,0"
-            ColumnDefinitions="Auto,Auto,Auto,*"
-            Background="Transparent">
 
-            <Button>Button1</Button>
+        <!--标题栏-->
+        <Grid Name="TitleBarHost"
+              Grid.Row="0"
+              Margin="200,0,200,0"
+              ColumnDefinitions="Auto,Auto,Auto,*"
+              Background="Transparent">
 
-            <Menu x:Name="MenuBar"
-                  Grid.Column="1"
-                  wnd:AppWindow.AllowInteractionInTitleBar="True">
-                <MenuItem Header="Header">
-                    <MenuItem Header="M1">
-                        <MenuItem
-                                  InputGesture="{DynamicResource CreateNewProjectKeyGesture}" />
-                        <MenuItem
-                                  InputGesture="{DynamicResource CreateNewKeyGesture}" />
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="Open">
-                        <MenuItem
-                                  Header="Project"
-                                  InputGesture="{DynamicResource OpenProjectKeyGesture}" />
-                        <MenuItem
-                                  Header="File"
-                                  InputGesture="{DynamicResource OpenKeyGesture}" />
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="Close" />
-                    <MenuItem
-                              Header="CloseProject"
-                              />
-                    <Separator />
-                    <MenuItem
-                              Header="Save"
-                              InputGesture="{DynamicResource SaveKeyGesture}">
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem x:Name="recentFiles" Header="RecentFiles" />
-                    <MenuItem x:Name="recentProjects" Header="RecentProjects" />
+            <Panel Grid.Column="1">
+                <Button Grid.Column="1">Button1</Button>
+            </Panel>
 
-                    <Separator />
-                    <MenuItem Header="Exit"
-                              InputGesture="{DynamicResource ExitKeyGesture}" />
-                </MenuItem>
-                <MenuItem Header="Edit">
-                    <MenuItem
-                              Header="Undo"
-                              InputGesture="{DynamicResource UndoKeyGesture}">
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal" Margin="6" Spacing="6">
+                <Button Name="OpenFilesButton" Classes="AppBarButton">
+                    <Button.Content>
+                        aaaa
+                    </Button.Content>
+                    <ToolTip.Tip>Open files</ToolTip.Tip>
+                </Button>
 
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem x:Name="viewMenuItem" Header="View">
-                    <MenuItem x:Name="editorTabMenuItem" Header="Editors" />
-                    <MenuItem x:Name="toolTabMenuItem" Header="Tools" />
-                </MenuItem>
-            </Menu>
-
-            <TextBlock Grid.Column="2"
-                       Margin="8,0,0,0"
-                       VerticalAlignment="Center"
-                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                       Text="?"/>
-
-            <StackPanel Grid.Column="3"
-                        Margin="0,0,16,0"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal"
-                        Spacing="8">
-
-                <TextBlock VerticalAlignment="Center"
-                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                           Text="Debug" />
-
-                <Button x:Name="OpenNotificationsButton"
-                        Margin="0,4"
-                        VerticalAlignment="Stretch"
-                        wnd:AppWindow.AllowInteractionInTitleBar="True"
-                        Theme="{StaticResource TransparentButton}">
-                    <Button.Flyout>
-                        <Flyout FlyoutPresenterClasses="HiddenNotificationPadding8">
-                            <ScrollViewer Margin="-8">
-                                <StackPanel x:Name="HiddenNotificationPanel" Spacing="4" />
-                            </ScrollViewer>
-                        </Flyout>
-                    </Button.Flyout>
-                    <ui:InfoBadge Value="3" />
+                <Button Name="SettingsButton">
+                    <Button.Content>
+                        ccc
+                    </Button.Content>
+                    <ToolTip.Tip>Settings</ToolTip.Tip>
                 </Button>
             </StackPanel>
         </Grid>
-
-        <ui:NavigationView x:Name="Navi"
-                           Grid.Row="1">
+        <ui:NavigationView
+            x:Name="Nav"
+            Grid.RowSpan="2"
+            IsSettingsVisible="True"
+            PaneDisplayMode="Auto">
+            <ui:NavigationView.Resources>
+                <!--  Override this  -->
+                <Thickness x:Key="NavigationViewContentMargin">0,60,0,0</Thickness>
+            </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" IconSource="Play"/>
+                <ui:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" IconSource="Play" />
                 <ui:NavigationViewItem Content="Menu Item2" Tag="SamplePage2" IconSource="Save" />
                 <ui:NavigationViewItem Content="Menu Item3" Tag="SamplePage3" IconSource="Refresh" />
                 <ui:NavigationViewItem Content="Menu Item4" Tag="SamplePage4" IconSource="Download" />
             </ui:NavigationView.MenuItems>
         </ui:NavigationView>
-
     </Grid>
 </UserControl>
