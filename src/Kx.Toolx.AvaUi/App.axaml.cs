@@ -9,29 +9,10 @@ namespace Kx.Toolx.AvaUi;
 
 public partial class App : Application
 {
-
-#if DEBUGX
-    [DllImport("Kernel32")]
-    public static extern void AllocConsole();
-
-    [DllImport("Kernel32", SetLastError = true)]
-    public static extern void FreeConsole();
-#endif
-
     public override void Initialize()
     {
-#if DEBUGX
-        AllocConsole();
-#endif
         AvaloniaXamlLoader.Load(this);
     }
-
-#if DEBUGX
-    ~App()
-    {
-        FreeConsole();
-    }
-#endif
 
     public override void OnFrameworkInitializationCompleted()
     {

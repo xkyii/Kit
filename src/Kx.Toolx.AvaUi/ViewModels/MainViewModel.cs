@@ -1,4 +1,3 @@
-using Avalonia.Logging;
 using System.Reactive;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;

@@ -1,5 +1,5 @@
 using System;
-
+using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Logging;
 using Avalonia.ReactiveUI;
@@ -33,6 +33,9 @@ class Program
                 services.AddTransient<MainWindow>();
                 services.AddLogging(builder =>
                 {
+#if DEBUG
+                    AllocConsole();
+#endif
                     builder.AddSplat();
                     builder.AddConsole();
 
@@ -48,4 +51,9 @@ class Program
 
                 Logger.Sink = serviceProvider.GetRequiredService<ILogSink>();
             });
+
+#if DEBUG
+    [DllImport("Kernel32")]
+    public static extern void AllocConsole();
+#endif
 }
