@@ -1,4 +1,5 @@
-﻿using Kx.Toolx.AvaUi.ViewModels;
+﻿using System;
+using Kx.Toolx.AvaUi.ViewModels;
 using Kx.Toolx.AvaUi.Views;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,16 @@ public static class AvaUiEntry
         services.AddSingleton<ViewModelFactory<MainViewModel>>();
         services.AddTransient<MainViewModel>();
         services.AddTransient<MainWindow>();
+    }
+}
 
+internal class ViewModelFactory<T>(IServiceProvider sp)
+    where T : ViewModelBase
+{
+    public T GetViewModel()
+    {
+        var vm = sp.GetRequiredService<T>();
+        vm.Initialize();
+        return vm;
     }
 }
