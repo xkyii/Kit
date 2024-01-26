@@ -9,6 +9,9 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-        DataContext = Locator.Current.GetService<MainViewModel>();
+        if (!Design.IsDesignMode)
+        {
+            DataContext = Locator.Current.GetService<MainViewModel>();
+        }
     }
 }

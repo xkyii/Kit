@@ -6,15 +6,11 @@
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
              xmlns:wnd="using:FluentAvalonia.UI.Windowing"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="Kx.Toolx.AvaUi.Views.MainView"
-             x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainViewModel />
-  </Design.DataContext>
-
+             d:DesignWidth="800" d:DesignHeight="450"
+             d:DataContext="{x:Static vm:DesignData.MainViewModel}"
+             x:DataType="vm:MainViewModel"
+             x:Class="Kx.Toolx.AvaUi.Views.MainView">
+    
     <Grid RowDefinitions="Auto,*">
 
         <Grid Name="TitleBarHost"

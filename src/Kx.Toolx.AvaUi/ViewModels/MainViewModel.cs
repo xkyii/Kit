@@ -6,6 +6,7 @@ namespace Kx.Toolx.AvaUi.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
+
     private readonly ILogger logger;
 
     public MainViewModel(ILogger<MainViewModel> logger)
@@ -14,7 +15,7 @@ public class MainViewModel : ViewModelBase
         CheckBindingCommand = ReactiveCommand.Create(CheckBinding);
     }
 
-    public string Greeting => "Welcome to Avalonia!";
+    public string Greeting { get; set; } = "Welcome to Avalonia!";
 
     #region Commands
 
