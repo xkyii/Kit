@@ -2,9 +2,9 @@ using System;
 using Avalonia.Logging;
 using Microsoft.Extensions.Logging;
 
-namespace Kx.Toolx.AvaUi.Desktop;
+namespace Kx.Toolx.AvaUi.Desktop.Logger;
 
-public static class LogLevelExtensions
+public static class MicrosoftLogExtensions
 {
     public static LogLevel ToMicrosoftLogLevel(this LogEventLevel level)
     {

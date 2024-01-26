@@ -1,11 +1,11 @@
 using Avalonia.Logging;
 using Microsoft.Extensions.Logging;
 
-namespace Kx.Toolx.AvaUi.Desktop;
+namespace Kx.Toolx.AvaUi.Desktop.Logger;
 
 public class MicrosoftLogSink(ILoggerFactory loggerFactory, LogLevel minimumAvaloniaLogLevel) : ILogSink
 {
-    private readonly ILogger logger = loggerFactory.CreateLogger(nameof(Avalonia));
+    private readonly ILogger _logger = loggerFactory.CreateLogger(nameof(Avalonia));
 
     public bool IsEnabled(LogEventLevel level, string area)
     {
@@ -20,7 +20,7 @@ public class MicrosoftLogSink(ILoggerFactory loggerFactory, LogLevel minimumAval
             return;
         }
 
-        logger.Log(level.ToMicrosoftLogLevel(), messageTemplate);
+        _logger.Log(level.ToMicrosoftLogLevel(), messageTemplate);
     }
 
     public void Log(LogEventLevel level,
@@ -35,6 +35,6 @@ public class MicrosoftLogSink(ILoggerFactory loggerFactory, LogLevel minimumAval
             return;
         }
 
-        logger.Log(level.ToMicrosoftLogLevel(), messageTemplate, propertyValues);
+        _logger.Log(level.ToMicrosoftLogLevel(), messageTemplate, propertyValues);
     }
 }

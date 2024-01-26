@@ -19,7 +19,10 @@
 	</PropertyGroup>
 
     <PropertyGroup>
+        <MicrosoftVersion>8.0.0</MicrosoftVersion>
         <AvaloniaVersion>11.0.7</AvaloniaVersion>
+        <FluentAvaloniaUIVersion>2.0.5</FluentAvaloniaUIVersion>
+        <SplatVersion>14.8.12</SplatVersion>
     </PropertyGroup>
 </Project>
 

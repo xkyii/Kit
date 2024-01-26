@@ -1,5 +1,4 @@
 using FluentAvalonia.UI.Windowing;
-using Kx.Toolx.AvaUi.ViewModels;
 
 namespace Kx.Toolx.AvaUi.Views;
 

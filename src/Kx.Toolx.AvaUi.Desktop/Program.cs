@@ -1,8 +1,7 @@
 using System;
-using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Logging;
-using Avalonia.ReactiveUI;
+using Kx.Toolx.AvaUi.Desktop.Logger;
 using Kx.Toolx.AvaUi.ViewModels;
 using Kx.Toolx.AvaUi.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,11 +32,8 @@ class Program
                 services.AddTransient<MainWindow>();
                 services.AddLogging(builder =>
                 {
-#if DEBUG
-                    AllocConsole();
-#endif
                     builder.AddSplat();
-                    builder.AddConsole();
+                    builder.AddAllocConsole();
 
                 });
                 services.AddSingleton<ILogSink, MicrosoftLogSink>(serviceProvider =>
@@ -48,12 +44,6 @@ class Program
             }, serviceProvider =>
             {
                 ArgumentNullException.ThrowIfNull(serviceProvider);
-
-                Logger.Sink = serviceProvider.GetRequiredService<ILogSink>();
+                Avalonia.Logging.Logger.Sink = serviceProvider.GetRequiredService<ILogSink>();
             });
-
-#if DEBUG
-    [DllImport("Kernel32")]
-    public static extern void AllocConsole();
-#endif
 }
