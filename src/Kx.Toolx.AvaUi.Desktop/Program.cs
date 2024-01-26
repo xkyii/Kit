@@ -1,11 +1,9 @@
 using System;
 using Avalonia;
-using Avalonia.Logging;
 using Kx.Toolx.AvaUi.Desktop.Logger;
 using Kx.Toolx.AvaUi.ViewModels;
 using Kx.Toolx.AvaUi.Views;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using ReactiveUI.Avalonia.Splat;
 using Splat.Microsoft.Extensions.Logging;
 
@@ -36,14 +34,5 @@ class Program
                     builder.AddAllocConsole();
 
                 });
-                services.AddSingleton<ILogSink, MicrosoftLogSink>(serviceProvider =>
-                {
-                    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-                    return new MicrosoftLogSink(loggerFactory, minimumAvaloniaLogLevel: LogLevel.Warning);
-                });
-            }, serviceProvider =>
-            {
-                ArgumentNullException.ThrowIfNull(serviceProvider);
-                Avalonia.Logging.Logger.Sink = serviceProvider.GetRequiredService<ILogSink>();
             });
 }
