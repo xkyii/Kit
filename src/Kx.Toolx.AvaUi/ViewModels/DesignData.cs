@@ -1,11 +1,12 @@
 using Microsoft.Extensions.Logging.Abstractions;
+// ReSharper disable UnusedMember.Global
 
 namespace Kx.Toolx.AvaUi.ViewModels;
 
 internal static class DesignData
 {
 
-    public static MainViewModel MainViewModel = new MainViewModel(NullLogger<MainViewModel>.Instance)
+    public static readonly MainViewModel MainViewModel = new(NullLogger<MainViewModel>.Instance)
     {
         Greeting = "Welcome to DesignMode"
     };
