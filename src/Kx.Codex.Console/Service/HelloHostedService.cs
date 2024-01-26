@@ -74,7 +74,6 @@ internal class HelloHostedService : IHostedService
             var engine = new RazorEngine();
             var template = engine.Compile<RazorEngineTemplateBase<EntityModel>>(content, builder =>
             {
-
                 foreach (var ar in assmblyRefers)
                 {
                     builder.AddMetadataReference(ar);

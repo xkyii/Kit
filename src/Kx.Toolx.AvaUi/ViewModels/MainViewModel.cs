@@ -1,12 +1,16 @@
 using System.Reactive;
 using Microsoft.Extensions.Logging;
 using ReactiveUI;
+using Splat;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Kx.Toolx.AvaUi.ViewModels;
 
-public class MainViewModel(ILogger<MainViewModel> logger) : ViewModelBase
+public class MainViewModel : ViewModelBase
 {
-    internal override void Initialize()
+    private readonly ILogger? _logger = Locator.Current.GetService<ILogger<MainViewModel>>();
+
+    public MainViewModel()
     {
         CheckBindingCommand = ReactiveCommand.Create(CheckBinding);
     }
@@ -18,7 +22,7 @@ public class MainViewModel(ILogger<MainViewModel> logger) : ViewModelBase
     public ReactiveCommand<Unit, Unit>? CheckBindingCommand { get; private set; }
     private void CheckBinding()
     {
-        logger.LogInformation("Greeting: {Greeting}", Greeting);
+        _logger?.LogInformation("Greeting: {Greeting}", Greeting);
     }
 
     #endregion

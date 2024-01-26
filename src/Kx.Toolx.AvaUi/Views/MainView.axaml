@@ -1,16 +1,15 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Kx.Toolx.AvaUi.ViewModels"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
-             xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+             xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
              xmlns:wnd="using:FluentAvalonia.UI.Windowing"
              d:DesignWidth="800" d:DesignHeight="450"
              d:DataContext="{x:Static vm:DesignData.MainViewModel}"
              x:DataType="vm:MainViewModel"
              x:Class="Kx.Toolx.AvaUi.Views.MainView">
-    
+
     <Grid RowDefinitions="Auto,*">
 
         <Grid Name="TitleBarHost"
@@ -42,6 +41,7 @@
             Grid.Row="1"
             OpenPaneLength="160"
             PaneDisplayMode="Auto"
+            SelectionChanged="NavigationView_OnSelectionChanged"
             x:Name="NavigationView">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" IconSource="Play" />
