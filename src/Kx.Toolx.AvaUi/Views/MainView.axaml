@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:v="clr-namespace:Kx.Toolx.AvaUi.Views"
              xmlns:vm="clr-namespace:Kx.Toolx.AvaUi.ViewModels"
              xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:rxui="clr-namespace:Avalonia.ReactiveUI;assembly=Avalonia.ReactiveUI"
@@ -28,7 +29,7 @@
             </Menu>
 
             <Panel Grid.Column="1">
-                <Button>Button1</Button>
+                <Button Command="{Binding GoNext}">Button1</Button>
             </Panel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="6" Spacing="6">
@@ -49,6 +50,16 @@
                 <ui:NavigationViewItem Content="Menu Item3" Tag="SamplePage3" IconSource="Refresh" />
                 <ui:NavigationViewItem Content="Menu Item4" Tag="SamplePage4" IconSource="Download" />
             </ui:NavigationView.MenuItems>
+            <rxui:RoutedViewHost Router="{Binding Router}">
+                <rxui:RoutedViewHost.DefaultContent>
+                    <TextBlock Text="Default content"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </rxui:RoutedViewHost.DefaultContent>
+                <rxui:RoutedViewHost.ViewLocator>
+                    <v:MainViewLocator />
+                </rxui:RoutedViewHost.ViewLocator>
+            </rxui:RoutedViewHost>
         </ui:NavigationView>
     </Grid>
 </UserControl>

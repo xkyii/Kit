@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 using Kx.Toolx.AvaUi.ViewModels;
@@ -27,5 +28,9 @@ public partial class MainView : UserControl
     private void NavigationView_OnSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
     {
         _logger?.LogInformation("NavigationView_OnSelectionChanged");
+        if (DataContext is MainViewModel mvm)
+        {
+            mvm.GoNext.Execute();
+        }
     }
 }
