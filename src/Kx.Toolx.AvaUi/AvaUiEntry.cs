@@ -9,7 +9,7 @@ public static class AvaUiEntry
 {
     public static void AddAvaUi(this IServiceCollection services)
     {
-        services.AddSingleton<ViewModelFactory<MainViewModel>>();
+        services.AddSingleton(typeof(ViewModelFactory<>));
         services.AddTransient<MainViewModel>();
         services.AddTransient<MainWindow>();
     }
