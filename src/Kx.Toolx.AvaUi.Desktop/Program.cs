@@ -1,8 +1,6 @@
 using System;
 using Avalonia;
 using Kx.Toolx.AvaUi.Desktop.Logger;
-using Kx.Toolx.AvaUi.ViewModels;
-using Kx.Toolx.AvaUi.Views;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI.Avalonia.Splat;
 using Splat.Microsoft.Extensions.Logging;
@@ -26,13 +24,11 @@ class Program
             .LogToTrace()
             .UseReactiveUIWithMicrosoftDependencyResolver(services =>
             {
-                services.AddTransient<MainViewModel>();
-                services.AddTransient<MainWindow>();
+                services.AddAvaUi();
                 services.AddLogging(builder =>
                 {
                     builder.AddSplat();
                     builder.AddAllocConsole();
-
                 });
             });
 }

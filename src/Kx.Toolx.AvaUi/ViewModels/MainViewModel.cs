@@ -4,14 +4,10 @@ using ReactiveUI;
 
 namespace Kx.Toolx.AvaUi.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public class MainViewModel(ILogger<MainViewModel> logger) : ViewModelBase
 {
-
-    private readonly ILogger logger;
-
-    public MainViewModel(ILogger<MainViewModel> logger)
+    internal override void Initialize()
     {
-        this.logger = logger;
         CheckBindingCommand = ReactiveCommand.Create(CheckBinding);
     }
 
@@ -19,11 +15,12 @@ public class MainViewModel : ViewModelBase
 
     #region Commands
 
-    public ReactiveCommand<Unit, Unit> CheckBindingCommand { get; }
+    public ReactiveCommand<Unit, Unit>? CheckBindingCommand { get; private set; }
     private void CheckBinding()
     {
         logger.LogInformation("Greeting: {Greeting}", Greeting);
     }
 
     #endregion
+
 }

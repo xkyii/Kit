@@ -2,6 +2,10 @@
 
 namespace Kx.Toolx.AvaUi.ViewModels;
 
-public class ViewModelBase : ReactiveObject
+public abstract class ViewModelBase : ReactiveObject
 {
+    internal virtual void Initialize()
+    {
+
+    }
 }
