@@ -40,6 +40,8 @@ public class MySqlDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Table>(builder =>
         {
             builder.ToSqlQuery("select * from information_schema.tables where TABLE_SCHEMA=(select database())")

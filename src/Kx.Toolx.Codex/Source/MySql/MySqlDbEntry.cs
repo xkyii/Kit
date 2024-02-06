@@ -11,8 +11,8 @@ public static class MySqlDbEntry
         services.AddDbContext<MySqlDbContext>((sp, options) =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
-            //string url = configuration["DataSource:Url"]!;
-            string url = "server=localhost;port=3306;database=tyr;user=tyr_admin;password=Tyr!23456";
+            string url = configuration["DataSource:Url"]!;
+            //string url = "server=localhost;port=3306;database=tyr;user=tyr_admin;password=Tyr!23456";
             options.UseMySQL(url);
         });
     }
