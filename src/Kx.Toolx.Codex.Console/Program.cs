@@ -4,8 +4,11 @@ using Serilog;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Kx.Toolx.Codex;
 using Kx.Toolx.Codex.Source.MySql;
+using Kx.Toolx.Codex.Console;
 
 
 var folder = genSpecialFolder();
@@ -50,6 +53,7 @@ try
         {
             services.AddCodex();
             services.AddCodexMySql();
+            services.AddHostedService<HelloHostedService>();
         })
         .UseConsoleLifetime()
         .Build()

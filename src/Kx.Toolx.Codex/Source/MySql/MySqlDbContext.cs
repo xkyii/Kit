@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Kx.Toolx.Codex.Source.MySql;
 
 
-public class CodexDbContext : DbContext
+public class MySqlDbContext : DbContext
 {
     /// <summary>
     /// 原始表信息
@@ -19,7 +19,7 @@ public class CodexDbContext : DbContext
     /// <summary>
     /// 迁移需要
     /// </summary>
-    public CodexDbContext()
+    public MySqlDbContext()
     {
     }
 
@@ -27,7 +27,7 @@ public class CodexDbContext : DbContext
     /// 为注入提供配置入口
     /// </summary>
     /// <param name="options"></param>
-    public CodexDbContext(DbContextOptions<CodexDbContext> options)
+    public MySqlDbContext(DbContextOptions<MySqlDbContext> options)
         : base(options)
     {
     }

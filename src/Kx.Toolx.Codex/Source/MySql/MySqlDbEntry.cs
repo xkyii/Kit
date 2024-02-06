@@ -8,7 +8,7 @@ public static class MySqlDbEntry
 {
     public static void AddCodexMySql(this IServiceCollection services)
     {
-        services.AddDbContext<CodexDbContext>((sp, options) =>
+        services.AddDbContext<MySqlDbContext>((sp, options) =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
             //string url = configuration["DataSource:Url"]!;
