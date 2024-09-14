@@ -4,7 +4,7 @@
 		<Version>0.1.4</Version>
 		<NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
 		<Product>Codex</Product>
 		<Authors>xkyii</Authors>
@@ -24,5 +24,12 @@
         <FluentAvaloniaUIVersion>2.0.5</FluentAvaloniaUIVersion>
         <SplatVersion>14.8.12</SplatVersion>
     </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>$(MSBuildProjectName).Test</_Parameter1>
+            <_Parameter1>LINQPadQuery</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>
 
