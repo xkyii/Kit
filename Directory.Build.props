@@ -1,28 +1,16 @@
 <Project>
     <PropertyGroup>
-        <LangVersion>latest</LangVersion>
-        <Version>0.1.4</Version>
-        <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <Product>Codex</Product>
+        <Product>Kx.Kit</Product>
         <Authors>xkyii</Authors>
         <Copyright>Copyright 2022-$([System.DateTime]::Now.Year) (c) xkyii</Copyright>
+        <Version>1.24.1</Version>
     </PropertyGroup>
 
     <PropertyGroup>
-        <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\build\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
-        <BaseOutputPath>$(MSBuildProjectDirectory)\..\..\build\$(MSBuildProjectName)\bin\</BaseOutputPath>
+        <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\..\..\.build\$(MSBuildProjectName)\obj\</BaseIntermediateOutputPath>
+        <BaseOutputPath>$(MSBuildProjectDirectory)\..\..\.build\$(MSBuildProjectName)\bin\</BaseOutputPath>
         <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-        <PackageOutputPath>$(MSBuildProjectDirectory)\..\..\build\nupkg</PackageOutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <MicrosoftVersion>8.0.0</MicrosoftVersion>
-        <AvaloniaVersion>11.0.7</AvaloniaVersion>
-        <FluentAvaloniaUIVersion>2.0.5</FluentAvaloniaUIVersion>
-        <SplatVersion>14.8.12</SplatVersion>
+        <PackageOutputPath>$(MSBuildProjectDirectory)\..\..\.build\nupkg</PackageOutputPath>
     </PropertyGroup>
 
     <ItemGroup>
@@ -32,4 +20,3 @@
         </AssemblyAttribute>
     </ItemGroup>
 </Project>
-
