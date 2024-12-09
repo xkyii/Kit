@@ -18,13 +18,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <ProjectReference Include="..\Kx.Kit.Codex\Kx.Kit.Codex.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kx.Kit.Codex\Kx.Kit.Codex.csproj" />
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

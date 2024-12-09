@@ -1,4 +1,5 @@
 ﻿
+using Ks.Core.Utilities.System.IO;
 using Kx.Kit.Codex;
 using Kx.Kit.Codex.Console;
 using Kx.Kit.Codex.Source.MySql;
@@ -18,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
 #endif
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
-    .WriteTo.Async(c => c.File(Path.Combine(PathExtensions.Profile("codex"), "Logs", "logs.txt")))
+    .WriteTo.Async(c => c.File(Path.Combine(Pathx.Profile("codex"), "Logs", "logs.txt")))
     .WriteTo.Async(c => c.Console())
     .CreateLogger();
 
@@ -35,7 +36,7 @@ try
 
             Log.Information(" EnvironmentName: {env}", env.EnvironmentName);
 
-            builder.SetBasePath(PathExtensions.Profile("codex"));
+            builder.SetBasePath(Pathx.Profile("codex"));
             builder.AddJsonFile(Path.Combine(contentRootPath, "appsettings.json"), true);
             builder.AddJsonFile(Path.Combine(contentRootPath, $"appsettings.{env.EnvironmentName}.json"), true);
         })
