@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kx.Toolx.Codex;
+namespace Kx.Kit.Codex;
 
 public static class CodexEntry
 {

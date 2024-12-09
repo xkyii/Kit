@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Kx.Toolx.Codex.Source.MySql;
+namespace Kx.Kit.Codex.Source.MySql;
 
 
 public class MySqlDbContext : DbContext

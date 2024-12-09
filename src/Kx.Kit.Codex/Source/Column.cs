@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kx.Toolx.Codex.Source;
+namespace Kx.Kit.Codex.Source;
 
 /// <summary>
 ///
@@ -12,26 +12,26 @@ public class Column
     /// Table qualifier.
     /// </summary>
     [Column("TABLE_CATALOG")]
-    public string TableCatalog { get; set; }
+    public string TableCatalog { get; set; } = string.Empty;
 
     /// <summary>
     /// Name of schema that contains the table.
     /// ** Important*\* Do not use INFORMATION_SCHEMA views to determine the schema of an object. The only reliable way to find the schema of a object is to query the sys.objects catalog view.
     /// </summary>
     [Column("TABLE_SCHEMA")]
-    public string TableSchema { get; set; }
+    public string TableSchema { get; set; } = string.Empty;
 
     /// <summary>
     /// Table name.
     /// </summary>
     [Column("TABLE_NAME")]
-    public string TableName { get; set; }
+    public string TableName { get; set; } = string.Empty;
 
     /// <summary>
     /// Column name.
     /// </summary>
     [Column("COLUMN_NAME")]
-    public string ColumnName { get; set; }
+    public string ColumnName { get; set; } = string.Empty;
 
     /// <summary>
     /// Column identification number.
@@ -43,19 +43,19 @@ public class Column
     /// Default value of the column.
     /// </summary>
     [Column("COLUMN_DEFAULT")]
-    public string? ColumnDefault { get; set; }
+    public string? ColumnDefault { get; set; } = string.Empty;
 
     /// <summary>
     /// Nullability of the column. If this column allows for NULL, this column returns YES. Otherwise, NO is returned.
     /// </summary>
     [Column("IS_NULLABLE")]
-    public string IsNullable { get; set; }
+    public string IsNullable { get; set; } = string.Empty;
 
     /// <summary>
     /// System-supplied data type.
     /// </summary>
     [Column("DATA_TYPE")]
-    public string DataType { get; set; }
+    public string DataType { get; set; } = string.Empty;
 
     /// <summary>
     /// Maximum length, in characters, for binary data, character data, or text and image data. -1 for xml and large-value type data.Otherwise, NULL is returned.For more information, see Data Types(Transact-SQL).

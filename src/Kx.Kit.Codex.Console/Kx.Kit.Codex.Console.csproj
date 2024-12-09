@@ -8,4 +8,23 @@
         <PublishAot>false</PublishAot>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Ks.Core" Version="1.24.1" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.0" />
+      <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kx.Kit.Codex\Kx.Kit.Codex.csproj" />
+    </ItemGroup>
+
 </Project>

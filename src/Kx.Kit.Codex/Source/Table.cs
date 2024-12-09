@@ -1,31 +1,31 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kx.Toolx.Codex.Source;
+namespace Kx.Kit.Codex.Source;
 
 
 [Table("TABLES", Schema = "INFORMATION_SCHEMA")]
 public class Table
 {
     [Column("TABLE_CATALOG")]
-    public string TableCatalog { get; private set; }
+    public string TableCatalog { get; private set; } = string.Empty;
 
     [Column("TABLE_SCHEMA")]
-    public string TableSchema { get; private set; }
+    public string TableSchema { get; private set; } = string.Empty;
 
     [Column("TABLE_NAME")]
-    public string TableName { get; private set; }
+    public string TableName { get; private set; } = string.Empty;
 
     [Column("TABLE_TYPE")]
-    public string TableType { get; private set; }
+    public string TableType { get; private set; } = string.Empty;
 
     [Column("ENGINE")]
-    public string Engine { get; private set; }
+    public string Engine { get; private set; } = string.Empty;
 
     [Column("VERSION")]
     public ulong? Version { get; private set; }
 
     [Column("ROW_FORMAT")]
-    public string RowFormat { get; private set; }
+    public string RowFormat { get; private set; } = string.Empty;
 
     [Column("TABLE_ROWS")]
     public ulong? TableRows { get; private set; }
@@ -58,14 +58,14 @@ public class Table
     public DateTime? CheckTime { get; private set; }
 
     [Column("TABLE_COLLATION")]
-    public string TableCollation { get; private set; }
+    public string TableCollation { get; private set; } = string.Empty;
 
     [Column("CHECKSUM")]
     public ulong? Checksum { get; private set; }
 
     [Column("CREATE_OPTIONS")]
-    public string CreateOptions { get; private set; }
+    public string CreateOptions { get; private set; } = string.Empty;
 
     [Column("TABLE_COMMENT")]
-    public string TableComment { get; private set; }
+    public string TableComment { get; private set; } = string.Empty;
 }

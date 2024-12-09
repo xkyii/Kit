@@ -1,6 +1,6 @@
 using System.Data.Common;
 
-namespace Kx.Toolx.Codex.Source;
+namespace Kx.Kit.Codex.Source;
 
 
 internal static class DbReaderExtension

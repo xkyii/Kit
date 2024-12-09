@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kx.Toolx.Codex.Source.MySql;
+namespace Kx.Kit.Codex.Source.MySql;
 
 public static class MySqlDbEntry
 {
