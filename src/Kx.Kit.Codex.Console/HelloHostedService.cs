@@ -12,20 +12,31 @@ internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfigura
 {
     private readonly string _generatedDirectory = configuration["Generate:GeneratedDirectory"] ?? "generated";
     private readonly string _tableFileName = configuration["Generate:TablesFileName"] ?? "Tables.json";
+    private readonly string _columnFileName = configuration["Generate:ColumnsFileName"] ?? "Columns.json";
+
+    private readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        WriteIndented = true,
+    };
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
         logger.LogInformation("StartAsync");
         Pathx.EnsureDirectoryExists(Path.GetFullPath(_generatedDirectory));
-        var tables = dbContext.Tables.ToList();
 
-        var options = new JsonSerializerOptions
+        // tables
         {
-            WriteIndented = true
-        };
+            var tables = dbContext.Tables.ToList();
+            var json = JsonSerializer.Serialize(tables, _jsonOptions);
+            File.WriteAllText(Path.Combine(_generatedDirectory, _tableFileName), json);
+        }
 
-        var json = JsonSerializer.Serialize(tables, options);
-        File.WriteAllText(Path.Combine(_generatedDirectory, _tableFileName), json);
+        // columns
+        {
+            var columns = dbContext.Columns.ToList();
+            var json = JsonSerializer.Serialize(columns, _jsonOptions);
+            File.WriteAllText(Path.Combine(_generatedDirectory, _columnFileName), json);
+        }
 
         return Task.CompletedTask;
     }
