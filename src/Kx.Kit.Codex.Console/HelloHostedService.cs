@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
 using Ks.Core.Utilities.System.IO;
+using Kx.Kit.Codex.Source;
 using Kx.Kit.Codex.Source.MySql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +18,7 @@ internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfigura
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         WriteIndented = true,
     };
 
@@ -27,15 +30,15 @@ internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfigura
         // tables
         {
             var tables = dbContext.Tables.ToList();
-            var json = JsonSerializer.Serialize(tables, _jsonOptions);
-            File.WriteAllText(Path.Combine(_generatedDirectory, _tableFileName), json);
+            var json = JsonSerializer.SerializeToUtf8Bytes(tables, _jsonOptions);
+            File.WriteAllBytes(Path.Combine(_generatedDirectory, _tableFileName), json);
         }
 
         // columns
         {
             var columns = dbContext.Columns.ToList();
-            var json = JsonSerializer.Serialize(columns, _jsonOptions);
-            File.WriteAllText(Path.Combine(_generatedDirectory, _columnFileName), json);
+            var json = JsonSerializer.SerializeToUtf8Bytes(columns, _jsonOptions);
+            File.WriteAllBytes(Path.Combine(_generatedDirectory, _columnFileName), json);
         }
 
         return Task.CompletedTask;
