@@ -49,14 +49,15 @@ try
         {
             services.AddCodex();
             services.AddCodexMySql();
-            services.AddHostedService<HelloHostedService>();
+            services.AddSingleton<Db2JsonHostedService>();
         })
         .UseConsoleLifetime()
         .Build()
         ;
 
-    await host.StartAsync();
-    await host.StopAsync();
+    var s = host.Services.GetRequiredService<Db2JsonHostedService>();
+    await s.StartAsync(CancellationToken.None);
+    await s.StopAsync(CancellationToken.None);
 }
 catch (Exception ex)
 {

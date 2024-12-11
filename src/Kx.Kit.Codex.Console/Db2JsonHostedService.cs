@@ -9,8 +9,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Kx.Kit.Codex.Console;
 
-internal class HelloHostedService(
-    ILogger<HelloHostedService> logger,
+internal class Db2JsonHostedService(
+    ILogger<Db2JsonHostedService> logger,
     IConfiguration configuration,
     MySqlDbContext dbContext)
     : IHostedService
