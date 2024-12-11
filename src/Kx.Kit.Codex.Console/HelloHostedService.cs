@@ -9,12 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Kx.Kit.Codex.Console;
 
-internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfiguration configuration, MySqlDbContext dbContext)
+internal class HelloHostedService(
+    ILogger<HelloHostedService> logger,
+    IConfiguration configuration,
+    MySqlDbContext dbContext)
     : IHostedService
 {
     private readonly string _generatedDirectory = configuration["Generate:GeneratedDirectory"] ?? "generated";
     private readonly string _tableFileName = configuration["Generate:TablesFileName"] ?? "Tables.json";
-    private readonly string _columnFileName = configuration["Generate:ColumnsFileName"] ?? "Columns.json";
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -27,20 +29,21 @@ internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfigura
         logger.LogInformation("StartAsync");
         Pathx.EnsureDirectoryExists(Path.GetFullPath(_generatedDirectory));
 
-        // tables
+        var tables = dbContext.Tables.ToList();
+        var columns = dbContext.Columns.ToList();
+
+        foreach (var table in tables)
         {
-            var tables = dbContext.Tables.ToList();
-            var json = JsonSerializer.SerializeToUtf8Bytes(tables, _jsonOptions);
-            File.WriteAllBytes(Path.Combine(_generatedDirectory, _tableFileName), json);
+            foreach (var column in columns)
+            {
+                if (table.TableName == column.TableName)
+                {
+                    Insert(table, column);
+                }
+            }
         }
 
-        // columns
-        {
-            var columns = dbContext.Columns.ToList();
-            var json = JsonSerializer.SerializeToUtf8Bytes(columns, _jsonOptions);
-            File.WriteAllBytes(Path.Combine(_generatedDirectory, _columnFileName), json);
-        }
-
+        File.WriteAllBytes(Path.Combine(_generatedDirectory, _tableFileName), JsonSerializer.SerializeToUtf8Bytes(tables, _jsonOptions));
         return Task.CompletedTask;
     }
 
@@ -48,5 +51,15 @@ internal class HelloHostedService(ILogger<HelloHostedService> logger, IConfigura
     {
         logger.LogInformation("StopAsync");
         return Task.CompletedTask;
+    }
+
+    private static void Insert(Table table, Column column)
+    {
+        if (table.Columns == null)
+        {
+            table.Columns = new List<Column>();
+        }
+
+        table.Columns.Add(column);
     }
 }

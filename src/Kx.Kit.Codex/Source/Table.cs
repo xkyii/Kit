@@ -68,4 +68,7 @@ public class Table
 
     [Column("TABLE_COMMENT")]
     public string TableComment { get; private set; } = string.Empty;
+
+    [NotMapped]
+    public IList<Column>? Columns { get; set; }
 }
