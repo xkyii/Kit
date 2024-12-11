@@ -16,7 +16,6 @@ internal class HelloHostedService(
     : IHostedService
 {
     private readonly string _generatedDirectory = configuration["Generate:GeneratedDirectory"] ?? "generated";
-    private readonly string _tableFileName = configuration["Generate:TablesFileName"] ?? "Tables.json";
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -43,7 +42,12 @@ internal class HelloHostedService(
             }
         }
 
-        File.WriteAllBytes(Path.Combine(_generatedDirectory, _tableFileName), JsonSerializer.SerializeToUtf8Bytes(tables, _jsonOptions));
+        foreach (var table in tables)
+        {
+            var json = JsonSerializer.SerializeToUtf8Bytes(table, _jsonOptions);
+            File.WriteAllBytes(Path.Combine(_generatedDirectory, table.TableName + ".json"), json);
+        }
+
         return Task.CompletedTask;
     }
 
