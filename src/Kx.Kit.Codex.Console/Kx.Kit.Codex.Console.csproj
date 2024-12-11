@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Kx.Kit.Codex.Generator\Kx.Kit.Codex.Generator.csproj" />
         <ProjectReference Include="..\Kx.Kit.Codex\Kx.Kit.Codex.csproj" />
     </ItemGroup>
 

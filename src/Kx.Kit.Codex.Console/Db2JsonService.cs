@@ -4,16 +4,14 @@ using Ks.Core.Utilities.System.IO;
 using Kx.Kit.Codex.Source;
 using Kx.Kit.Codex.Source.MySql;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Kx.Kit.Codex.Console;
 
-internal class Db2JsonHostedService(
-    ILogger<Db2JsonHostedService> logger,
+internal class Db2JsonService(
+    ILogger<Db2JsonService> logger,
     IConfiguration configuration,
     MySqlDbContext dbContext)
-    : IHostedService
 {
     private readonly string _generatedDirectory = configuration["Generate:GeneratedDirectory"] ?? "generated";
 
