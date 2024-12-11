@@ -59,11 +59,7 @@ internal class Db2JsonHostedService(
 
     private static void Insert(Table table, Column column)
     {
-        if (table.Columns == null)
-        {
-            table.Columns = new List<Column>();
-        }
-
+        table.Columns ??= new List<Column>();
         table.Columns.Add(column);
     }
 }
