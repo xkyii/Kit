@@ -1,8 +1,10 @@
 ﻿using System.Text.Json;
+using Ks.Core.Utilities.System.IO;
 using Ks.Core.Utilities.System.Text.Json;
 using Kx.Kit.Codex.Console.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using RazorEngineCore;
 
 namespace Kx.Kit.Codex.Console.Services;
 
@@ -18,6 +20,8 @@ internal class GenerateService(
     IConfiguration configuration)
 {
     private readonly string _sourceFile = configuration["Generate:SourceFile"] ?? string.Empty;
+    private readonly string _templateFile = configuration["Generate:TemplateFile"] ?? string.Empty;
+    private readonly string _targetFile = configuration["Generate:TargetFile"] ?? string.Empty;
     private readonly string _sourceKey = configuration["Generate:SourceKey"] ?? "Table";
 
     private static readonly JsonSerializerOptions DynamicSerializerOptions = new()
@@ -54,7 +58,17 @@ internal class GenerateService(
         ((IDictionary<string, object>) model).Add(_sourceKey, JsonSerializer.Deserialize<dynamic>(jsonText, serializerOptions));
         model.Generate = dynamicConfig.Generate;
 
-        logger.LogInformation($"{JsonSerializer.Serialize(model, new JsonSerializerOptions(){WriteIndented = true})}");
+        // logger.LogInformation($"{JsonSerializer.Serialize(model, new JsonSerializerOptions(){WriteIndented = true})}");
+
+        var templateContent = File.ReadAllText(_templateFile);
+        var razorEngine = new RazorEngine();
+        var template = razorEngine.Compile(templateContent);
+        var result = template.Run(model);
+
+        logger.LogInformation($"{JsonSerializer.Serialize(result, new JsonSerializerOptions(){WriteIndented = true})}");
+
+        Pathx.EnsureDirectoryExists(Path.GetDirectoryName(_targetFile));
+        File.WriteAllText(_targetFile, result);
         return Task.CompletedTask;
     }
 
