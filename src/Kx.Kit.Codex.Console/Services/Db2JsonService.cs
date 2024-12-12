@@ -6,14 +6,14 @@ using Kx.Kit.Codex.Source.MySql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Kx.Kit.Codex.Console;
+namespace Kx.Kit.Codex.Console.Services;
 
 internal class Db2JsonService(
     ILogger<Db2JsonService> logger,
     IConfiguration configuration,
     MySqlDbContext dbContext)
 {
-    private readonly string _generatedDirectory = configuration["Generate:GeneratedDirectory"] ?? "generated";
+    private readonly string _generatedDirectory = configuration["Db2Json:Db2JsonDirectory"] ?? "generated/db2json";
 
     private readonly JsonSerializerOptions _jsonOptions = new()
     {

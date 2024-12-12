@@ -2,6 +2,7 @@
 using Ks.Core.Utilities.System.IO;
 using Kx.Kit.Codex;
 using Kx.Kit.Codex.Console;
+using Kx.Kit.Codex.Console.Services;
 using Kx.Kit.Codex.Generator;
 using Kx.Kit.Codex.Source.MySql;
 using Serilog.Events;
@@ -52,14 +53,14 @@ try
             services.AddCodexGenerator();
             services.AddCodexMySql();
             services.AddSingleton<Db2JsonService>();
-            services.AddSingleton<GeneratorService>();
+            services.AddSingleton<GenerateService>();
         })
         .UseConsoleLifetime()
         .Build()
         ;
 
     // var s = host.Services.GetRequiredService<Db2JsonService>();
-    var s = host.Services.GetRequiredService<GeneratorService>();
+    var s = host.Services.GetRequiredService<GenerateService>();
     await s.StartAsync(CancellationToken.None);
     await s.StopAsync(CancellationToken.None);
 }
