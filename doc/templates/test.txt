@@ -1,1 +1,1 @@
-﻿Hello @Model.Generate.Extra.Author
+﻿Hello @Model.Config.Info.Author

@@ -56,7 +56,7 @@ internal class GenerateService(
         };
         dynamic model = new System.Dynamic.ExpandoObject();
         ((IDictionary<string, object>) model).Add(_sourceKey, JsonSerializer.Deserialize<dynamic>(jsonText, serializerOptions));
-        model.Generate = dynamicConfig.Generate;
+        model.Config = dynamicConfig;
 
         // logger.LogInformation($"{JsonSerializer.Serialize(model, new JsonSerializerOptions(){WriteIndented = true})}");
 
