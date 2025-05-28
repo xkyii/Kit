@@ -1,26 +1,32 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Kx.Kit.Ava.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:u="https://irihi.tech/ursa"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Kx.Kit.Ava.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Kx.Kit.Ava">
-
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <StackPanel Margin="20">
-        <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <u:IconButton
-            Icon="{DynamicResource CalendarViewFastForwardGlyph}"
-            Theme="{DynamicResource BorderlessIconButton}"/>
-    </StackPanel>
-
-</Window>
+<u:UrsaWindow
+    x:Class="Kx.Kit.Ava.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:Irihi.Avalonia.Shared.Helpers;assembly=Irihi.Avalonia.Shared"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:u="https://irihi.tech/ursa"
+    xmlns:viewModels="clr-namespace:Kx.Kit.Ava.ViewModels"
+    xmlns:views="clr-namespace:Kx.Kit.Ava.Views"
+    Title="Kx.Kit.Ava"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:CompileBindings="True"
+    x:DataType="viewModels:MainWindowViewModel"
+    WindowStartupLocation="CenterScreen"
+    Icon="/Assets/avalonia-logo.ico"
+    IsFullScreenButtonVisible="{OnPlatform {x:True}, macOS={x:False}}"
+    IsManagedResizerVisible="{OnPlatform {x:False}, Linux={x:True}}"
+    mc:Ignorable="d">
+    <u:UrsaWindow.RightContent>
+    </u:UrsaWindow.RightContent>
+    <u:UrsaWindow.Styles>
+        <!--This style is created to demonstrate Dialog StyleClass feature. This style is applied to dialogs in MainWindow OverlayDialogHost -->
+        <Style Selector="u|DefaultDialogControl.Custom">
+            <Style Selector="^ /template/ Button#PART_OKButton">
+                <Setter Property="Content" Value="CUSTOM" />
+                <Setter Property="helpers:ClassHelper.Classes" Value="Warning" />
+            </Style>
+        </Style>
+    </u:UrsaWindow.Styles>
+</u:UrsaWindow>
