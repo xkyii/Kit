@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Kit.Codex.Console", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Kit.Codex.Generator", "src\Kx.Kit.Codex.Generator\Kx.Kit.Codex.Generator.csproj", "{C71DB0C4-34B1-4679-9DFC-48154FC0FDB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Kit.Ava", "Kx.Kit.Ava\Kx.Kit.Ava.csproj", "{83605C2F-9B60-4317-BA91-3AAEEE83F328}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Kit.Ava", "src\Kx.Kit.Ava\Kx.Kit.Ava.csproj", "{2090B8C6-0F08-4084-AADF-2BD5D9A56E96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,10 @@ Global
 		{C71DB0C4-34B1-4679-9DFC-48154FC0FDB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C71DB0C4-34B1-4679-9DFC-48154FC0FDB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C71DB0C4-34B1-4679-9DFC-48154FC0FDB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83605C2F-9B60-4317-BA91-3AAEEE83F328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83605C2F-9B60-4317-BA91-3AAEEE83F328}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83605C2F-9B60-4317-BA91-3AAEEE83F328}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83605C2F-9B60-4317-BA91-3AAEEE83F328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2090B8C6-0F08-4084-AADF-2BD5D9A56E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2090B8C6-0F08-4084-AADF-2BD5D9A56E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2090B8C6-0F08-4084-AADF-2BD5D9A56E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2090B8C6-0F08-4084-AADF-2BD5D9A56E96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
